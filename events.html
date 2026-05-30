@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events Management | JALLIX-NEX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/events-grid.css">
+
+    <style>
+        /* Make page-header bigger and more impressive */
+        .page-header {
+            min-height: 500px !important;
+            height: 60vh;
+            max-height: 700px;
+        }
+        
+        .page-header .container {
+            position: relative;
+            z-index: 10;
+            padding-top: 80px;
+        }
+        
+        .page-header h1 {
+            font-size: 3.5rem !important;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .page-header p {
+            font-size: 1.5rem;
+            font-weight: 300;
+            max-width: 600px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        /* Video Background Styles */
+        .header-video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .header-video-bg video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        
+        .header-video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%);
+            z-index: 2;
+        }
+        
+        .events-grid .event-card .event-date {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #d35400, #a04000);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 600;
+    z-index: 2;
+    min-width: 70px;
+    box-shadow: 0 4px 15px rgba(211, 84, 0, 0.3);
+    width: 20px;
+}
+
+.events-grid .event-card .event-info {
+    padding: 25px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 90px;
+}
+
+.page-header p {
+    font-size: 1.5rem;
+    font-weight: 300;
+    max-width: 600px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    margin-left: 280px;
+}
+    </style>
+</head>
+<body class="events-page">
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="images/bullicon.png" alt="Bull Icon" style="width: 40px; height: 40px;">
+                </div>
+                <div class="logo-text">JALLIX<span>NEX</span></div>
+            </div>
+            
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav class="nav">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="events.html" class="nav-link active">Events</a></li>
+                    <li><a href="bulls.html" class="nav-link">Bulls</a></li>
+                    <li><a href="tamers.html" class="nav-link">Tamers</a></li>
+                    <li><a href="sponsors.html" class="nav-link">Sponsors</a></li>
+                    <!-- <li><a href="participants.html" class="nav-link">Register</a></li> -->
+                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li>
+                        <a href="login.html" class="nav-login-btn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Login</span>
+                            <span class="btn-shine"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Events Management Section -->
+    <section class="page-header">
+        <div class="header-video-bg">
+            <video autoplay muted loop playsinline poster="images/bull.png">
+                <source src="videos/backgroundvideo2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="header-video-overlay"></div>
+        </div>
+        <div class="container">
+            <h1>Events Management</h1>
+            <p>Create, manage, and view Jallikattu events</p>
+        </div>
+    </section>
+
+    <section class="dashboard">
+        <div class="container">
+            <div class="section-header">
+                <h2>Upcoming Events</h2>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="createEventBtn">
+                        <i class="fas fa-plus"></i> Create New Event
+                    </button>
+                    <button class="btn btn-outline" id="filterEventsBtn">
+                        <i class="fas fa-filter"></i> Filter Events
+                    </button>
+                </div>
+            </div>
+
+            <!-- Event Statistics -->
+            <div class="stats-grid mb-30">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>14</h3>
+                        <p>Total Events</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <img src="images/bull.png" alt="Bull" style="width: 40px; height: 40px;">
+                    </div>
+                    <div class="stat-info">
+                        <h3>236</h3>
+                        <p>Bull Registrations</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>127</h3>
+                        <p>Tamer Applications</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>85%</h3>
+                        <p>Slot Occupancy</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events Grid -->
+            <div class="events-grid" id="eventsContainer">
+                <!-- Events will be loaded here -->
+            </div>
+
+            <!-- My Registrations Section -->
+            <div class="section-header mt-40" id="myRegistrationsHeader" style="display: none;">
+                <h2>My Event Registrations</h2>
+            </div>
+            
+            <div class="registrations-grid" id="registrationsContainer">
+                <!-- User's registrations will be loaded here -->
+            </div>
+
+            <!-- Event Creation Form -->
+            <div class="form-container card mb-30" id="eventCreationForm" style="display: none;">
+                <h3 class="form-title">Create New Event</h3>
+                <form id="eventForm">
+                    <div class="form-section">
+                        <h4>Event Basic Information</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="eventName">Event Name *</label>
+                                <input type="text" id="eventName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventType">Event Type *</label>
+                                <select id="eventType" class="form-control" required>
+                                    <option value="">Select Type</option>
+                                    <option value="championship">Championship</option>
+                                    <option value="traditional">Traditional</option>
+                                    <option value="festival">Festival Special</option>
+                                    <option value="exhibition">Exhibition</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventDescription">Event Description</label>
+                            <textarea id="eventDescription" class="form-control" rows="3" placeholder="Describe your event, rules, and special features"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Event Schedule & Location</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="eventDate">Event Date *</label>
+                                <input type="date" id="eventDate" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventStartTime">Start Time *</label>
+                                <input type="time" id="eventStartTime" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventEndTime">End Time *</label>
+                                <input type="time" id="eventEndTime" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="registrationDeadline">Registration Deadline *</label>
+                                <input type="date" id="registrationDeadline" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventLocation">Location/Venue Name *</label>
+                                <input type="text" id="eventLocation" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventAddress">Full Address</label>
+                            <textarea id="eventAddress" class="form-control" rows="2" placeholder="Enter the complete address of the event venue"></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="district">District *</label>
+                                <input type="text" id="district" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State *</label>
+                                <input type="text" id="state" class="form-control" value="Tamil Nadu" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Registration Settings</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="maxBulls">Maximum Bulls *</label>
+                                <input type="number" id="maxBulls" class="form-control" min="1" max="200" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="maxTamers">Maximum Tamers</label>
+                                <input type="number" id="maxTamers" class="form-control" min="1" max="100">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="entryFee">Entry Fee per Bull (₹)</label>
+                                <input type="number" id="entryFee" class="form-control" min="0" placeholder="0 for free events">
+                            </div>
+                            <div class="form-group">
+                                <label for="minBullAge">Minimum Bull Age (years)</label>
+                                <input type="number" id="minBullAge" class="form-control" min="1" max="15" value="3">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Requirements & Rules</h4>
+                        <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" id="requireCertification" checked>
+                                <span>Require veterinary fitness certificate for bulls</span>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" id="requireMedical">
+                                <span>Require medical certificate for tamers</span>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" id="requireOwnerID">
+                                <span>Require owner ID verification</span>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" id="isActive" checked>
+                                <span>Activate event immediately upon creation</span>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventRules">Special Rules & Conditions</label>
+                            <textarea id="eventRules" class="form-control" rows="3" placeholder="Enter any specific rules or conditions for this event"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Documents & Media</h4>
+                        <div class="form-group">
+                            <label>Event Banner Image</label>
+                            <div class="file-upload">
+                                <i class="fas fa-image"></i>
+                                <p>Click to upload event banner (JPG, PNG) - Recommended size: 1200x400</p>
+                                <input type="file" id="eventBanner" accept=".jpg,.jpeg,.png">
+                            </div>
+                            <small class="text-muted">High-quality banner image for event promotion</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Event Documents (Rulebook, permits, etc.)</label>
+                            <div class="file-upload">
+                                <i class="fas fa-file-pdf"></i>
+                                <p>Click to upload PDF documents</p>
+                                <input type="file" id="eventDocuments" accept=".pdf" multiple>
+                            </div>
+                            <small class="text-muted">Upload event rules, permits, or other official documents</small>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Contact Information</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactName">Contact Person Name *</label>
+                                <input type="text" id="contactName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactPhone">Contact Phone *</label>
+                                <input type="tel" id="contactPhone" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactEmail">Contact Email</label>
+                            <input type="email" id="contactEmail" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox">
+                            <input type="checkbox" id="agreeTerms" required>
+                            <span>I declare that all information provided is true and accurate. I agree to the <a href="#">terms and conditions</a> for event organization.</span>
+                        </label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Create Event</button>
+                        <button type="button" class="btn btn-outline" id="cancelEventForm">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">JALLIX<span>NEX</span></div>
+                    <p>Next Generation Jallikattu Event Intelligence and Management System. Preserving tradition through technology.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="bulls.html">Bull Registration</a></li>
+                        <li><a href="tamers.html">Tamer Registration</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Event Categories</h4>
+                    <ul>
+                        <li><a href="#">Championship Events</a></li>
+                        <li><a href="#">Traditional Events</a></li>
+                        <li><a href="#">Festival Specials</a></li>
+                        <li><a href="#">Exhibition Events</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> events@jallixnex.com</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 JALLIX-NEX. All rights reserved. | Designed for Next Generation Jallikattu Management</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/events.js"></script>
+</body>
+</html>

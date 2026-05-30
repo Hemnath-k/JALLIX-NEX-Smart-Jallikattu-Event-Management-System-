@@ -1,0 +1,1424 @@
+/* ========================================
+   MODERN AUTH PAGE STYLES
+   ======================================== */
+
+/* Hide Scrollbar - Keep functionality but hide visual scrollbar */
+.auth-card {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.auth-card::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+}
+
+/* Home Shortcut Button */
+.home-shortcut {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, rgba(211, 84, 0, 0.9), rgba(243, 156, 18, 0.85));
+    color: white;
+    border-radius: 50px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    box-shadow: 0 8px 25px rgba(211, 84, 0, 0.4);
+    z-index: 1000;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: slideInRight 0.5s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.home-shortcut i {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.home-shortcut span {
+    position: relative;
+    z-index: 1;
+}
+
+.home-shortcut::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.home-shortcut:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 35px rgba(211, 84, 0, 0.5);
+    color: white;
+}
+
+.home-shortcut:hover::before {
+    opacity: 1;
+}
+
+.home-shortcut:hover i {
+    transform: scale(1.2);
+}
+
+/* Authentication Page Base */
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background Video Styles */
+.auth-video-bg {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -3;
+    object-fit: cover;
+}
+
+.auth-video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85));
+    z-index: -2;
+}
+
+/* Floating Shapes Animation */
+.floating-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: float 20s infinite ease-in-out;
+}
+
+.shape-1 {
+    width: 300px;
+    height: 300px;
+    background: var(--primary);
+    top: -100px;
+    left: -100px;
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    width: 200px;
+    height: 200px;
+    background: var(--secondary);
+    bottom: -50px;
+    right: -50px;
+    animation-delay: -5s;
+}
+
+.shape-3 {
+    width: 150px;
+    height: 150px;
+    background: var(--primary-light);
+    top: 50%;
+    right: 20%;
+    animation-delay: -10s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(20px, 30px) rotate(5deg);
+    }
+    50% {
+        transform: translate(-10px, 20px) rotate(-5deg);
+    }
+    75% {
+        transform: translate(15px, -15px) rotate(3deg);
+    }
+}
+
+/* Auth Container */
+.auth-container {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    gap: 30px;
+    align-items: stretch;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Glassmorphism Auth Card */
+.auth-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    animation: slideUp 0.6s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Custom Scrollbar - Removed, using hidden scrollbar instead */
+
+/* Auth Header */
+.auth-header {
+    padding: 35px 35px 25px;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(211, 84, 0, 0.95), rgba(243, 156, 18, 0.9));
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(20%, 20%);
+    }
+}
+
+.auth-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.logo-icon-wrapper {
+    width: 55px;
+    height: 55px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+    }
+}
+
+.logo-icon-wrapper i {
+    font-size: 28px;
+    color: white;
+}
+
+.logo-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.brand-name {
+    font-family: 'Roboto Slab', serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.brand-tagline {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    opacity: 0.9;
+    margin-left: 2px;
+}
+
+.welcome-text {
+    position: relative;
+    z-index: 1;
+}
+
+.welcome-text h2 {
+    margin-bottom: 8px;
+    font-size: 28px;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.welcome-text p {
+    opacity: 0.95;
+    font-size: 15px;
+}
+
+/* Tab Navigation */
+.auth-tabs {
+    display: flex;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 18px 20px;
+    background: none;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tab-btn i {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.tab-btn:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-btn:hover i {
+    transform: translateY(-2px);
+}
+
+.tab-btn.active {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.tab-btn .tab-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 3px 3px 0 0;
+    transition: width 0.3s ease;
+}
+
+.tab-btn.active .tab-indicator {
+    width: 60px;
+}
+
+/* Forms */
+.auth-form {
+    padding: 30px 35px;
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.auth-form.active {
+    display: block;
+}
+
+.form-wrapper {
+    max-width: 100%;
+}
+
+/* Input Groups with Floating Labels */
+.input-group {
+    position: relative;
+    margin-bottom: 22px;
+}
+
+.input-group .form-control {
+    width: 100%;
+    padding: 16px 16px 16px 50px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    background: rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+}
+
+.input-group .form-control:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.input-group .form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 0 4px rgba(211, 84, 0, 0.2);
+}
+
+.input-group .form-control::placeholder {
+    color: transparent;
+}
+
+.input-group label {
+    position: absolute;
+    left: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.input-group .form-control:focus ~ label,
+.input-group .form-control:not(:placeholder-shown) ~ label {
+    top: 0;
+    left: 12px;
+    font-size: 12px;
+    color: var(--primary);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding: 0 6px;
+}
+
+.input-group .input-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.input-group .form-control:focus ~ .input-icon {
+    color: var(--primary);
+}
+
+.password-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    padding: 6px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.password-toggle:hover {
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.form-hint {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-left: 4px;
+}
+
+/* Form Row */
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .input-group {
+    flex: 1;
+}
+
+/* Custom Checkbox */
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px 0;
+}
+
+.checkbox-wrapper input {
+    display: none;
+}
+
+.checkbox-wrapper .checkmark {
+    width: 22px;
+    height: 22px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    margin-right: 12px;
+    position: relative;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.checkbox-wrapper .checkmark::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    color: white;
+    font-size: 12px;
+    transition: transform 0.2s ease;
+}
+
+.checkbox-wrapper input:checked ~ .checkmark {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-color: transparent;
+}
+
+.checkbox-wrapper input:checked ~ .checkmark::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.checkbox-wrapper:hover .checkmark {
+    border-color: var(--primary);
+}
+
+.checkmark-label {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    transition: color 0.3s ease;
+}
+
+.checkbox-wrapper:hover .checkmark-label {
+    color: white;
+}
+
+/* Form Options */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.forgot-password {
+    color: var(--primary-light);
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.forgot-password:hover {
+    color: var(--sand);
+    transform: translateX(5px);
+}
+
+/* Buttons */
+.btn-block {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 12px;
+}
+
+.btn-login {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(211, 84, 0, 0.4);
+}
+
+.btn-login::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-login:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(211, 84, 0, 0.5);
+}
+
+.btn-login:hover::before {
+    left: 100%;
+}
+
+.btn-login:active {
+    transform: translateY(-1px);
+}
+
+.btn-login span {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-login i {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+.btn-login:hover i {
+    transform: translateX(5px);
+}
+
+/* Auth Footer */
+.auth-footer {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.auth-footer p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+
+.auth-footer a {
+    color: var(--primary-light);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.auth-footer a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--sand);
+    transition: width 0.3s ease;
+}
+
+.auth-footer a:hover::after {
+    width: 100%;
+}
+
+.auth-footer a:hover {
+    color: var(--sand);
+}
+
+/* Role Selection */
+.role-selection {
+    margin-bottom: 25px;
+}
+
+.role-label {
+    display: block;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.role-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.role-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px 15px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.role-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.role-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+}
+
+.role-btn:hover::before {
+    opacity: 0.1;
+}
+
+.role-btn.active {
+    border-color: var(--primary);
+    background: rgba(211, 84, 0, 0.2);
+    box-shadow: 0 0 20px rgba(211, 84, 0, 0.3);
+}
+
+.role-btn.active::before {
+    opacity: 0.15;
+}
+
+.role-btn .role-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+.role-btn:hover .role-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.role-btn .role-icon i {
+    font-size: 20px;
+    color: white;
+}
+
+.role-btn span {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    position: relative;
+    z-index: 1;
+}
+
+/* Terms Checkbox */
+.terms-wrapper {
+    margin-bottom: 25px;
+}
+
+.terms-wrapper .checkbox-wrapper .checkmark-label {
+    font-size: 13px;
+}
+
+.terms-wrapper .checkbox-wrapper .checkmark-label a {
+    color: var(--primary-light);
+    font-weight: 600;
+}
+
+.terms-wrapper .checkbox-wrapper .checkmark-label a:hover {
+    color: var(--sand);
+}
+
+/* Info Card */
+.auth-info-card {
+    width: 280px;
+    background: linear-gradient(135deg, rgba(211, 84, 0, 0.9), rgba(243, 156, 18, 0.85));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    padding: 35px;
+    display: flex;
+    align-items: center;
+    animation: slideUp 0.6s ease 0.2s both;
+}
+
+.info-content {
+    color: white;
+}
+
+.info-content h3 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    font-family: 'Roboto Slab', serif;
+}
+
+.info-content > p {
+    font-size: 14px;
+    line-height: 1.7;
+    opacity: 0.95;
+    margin-bottom: 25px;
+}
+
+.info-features {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.feature-item i {
+    font-size: 18px;
+    color: var(--sand);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Password Reset Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: relative;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    width: 90%;
+    max-width: 450px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s ease;
+    margin: 20px;
+}
+
+.modal.active .modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    border-radius: 20px 20px 0 0;
+}
+
+.modal-header h3 {
+    color: white;
+    font-size: 22px;
+    margin: 0;
+    font-family: 'Roboto Slab', serif;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 28px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg) scale(1.1);
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+.reset-description {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .auth-container {
+        flex-direction: column;
+        max-width: 500px;
+    }
+    
+    .auth-info-card {
+        width: 100%;
+        order: -1;
+    }
+}
+
+@media (max-width: 576px) {
+    .auth-page {
+        padding: 15px;
+    }
+    
+    .auth-header,
+    .auth-form {
+        padding: 25px 20px;
+    }
+    
+    .welcome-text h2 {
+        font-size: 24px;
+    }
+    
+    .auth-tabs {
+        flex-direction: row;
+    }
+    
+    .tab-btn {
+        padding: 14px 10px;
+        font-size: 13px;
+    }
+    
+    .tab-btn i {
+        display: none;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .role-buttons {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .auth-card {
+        border-radius: 20px;
+    }
+    
+    .info-content h3 {
+        font-size: 22px;
+    }
+    
+    .info-features {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .feature-item {
+        width: calc(50% - 10px);
+    }
+}
+
+@media (max-width: 400px) {
+    .role-buttons {
+        grid-template-columns: 1fr;
+    }
+    
+    .feature-item {
+        width: 100%;
+    }
+    
+    .logo-icon-wrapper {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .logo-icon-wrapper i {
+        font-size: 22px;
+    }
+    
+    .brand-name {
+        font-size: 24px;
+    }
+}
+
+/* ========================================
+   NAVIGATION ENHANCEMENTS
+   ======================================== */
+
+/* Nav Container Enhancement */
+.nav {
+    position: relative;
+    z-index: 1000;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-links li {
+    margin-left: 8px;
+}
+
+/* Enhanced Nav Link Styles */
+.nav-link {
+    position: relative;
+    padding: 10px 18px;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--dark);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 10px;
+}
+
+.nav-link:hover {
+    color: white;
+    transform: translateY(-2px);
+}
+
+.nav-link:hover::before {
+    opacity: 1;
+}
+
+.nav-link span {
+    position: relative;
+    z-index: 1;
+}
+
+.nav-link::after {
+    display: none;
+}
+
+.nav-link.active {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    box-shadow: 0 4px 15px rgba(211, 84, 0, 0.3);
+}
+
+/* Creative Login Button Styles */
+.nav-links .nav-login-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white !important;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 15px rgba(211, 84, 0, 0.3);
+    text-decoration: none;
+}
+
+.nav-login-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.nav-login-btn::after {
+    display: none;
+}
+
+.nav-login-btn i {
+    position: relative;
+    z-index: 1;
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.nav-login-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+.nav-login-btn .btn-shine {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 50%;
+    filter: blur(5px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.nav-login-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(211, 84, 0, 0.5);
+    color: white;
+}
+
+.nav-login-btn:hover::before {
+    left: 100%;
+}
+
+.nav-login-btn:hover i {
+    transform: scale(1.2);
+}
+
+.nav-login-btn:hover .btn-shine {
+    opacity: 1;
+    animation: shine 1s infinite;
+}
+
+@keyframes shine {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 1;
+    }
+}
+
+/* Alternative: Gradient Border Button */
+.nav-login-btn-gradient {
+    position: relative;
+    background: white;
+    padding: 3px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.nav-login-btn-gradient a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.nav-login-btn-gradient:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(211, 84, 0, 0.4);
+}
+
+.nav-login-btn-gradient:hover a {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+}
+
+.nav-login-btn-gradient a i {
+    font-size: 13px;
+    transition: transform 0.3s ease;
+}
+
+.nav-login-btn-gradient:hover a i {
+    transform: translateX(3px);
+}
+
+/* Floating Animation for Login Button */
+.nav-login-btn-float {
+    animation: floatBtn 3s ease-in-out infinite;
+}
+
+@keyframes floatBtn {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Pulse Effect on Login Button */
+.nav-login-btn-pulse {
+    position: relative;
+}
+
+.nav-login-btn-pulse::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    opacity: 0.3;
+    z-index: -1;
+    animation: pulseBtn 2s infinite;
+}
+
+@keyframes pulseBtn {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.1;
+    }
+}
+
+/* Responsive Nav Enhancements */
+@media (max-width: 992px) {
+    .nav {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        transform: translateY(-150%);
+        opacity: 0;
+        transition: all 0.4s ease;
+        z-index: 999;
+        border-radius: 0 0 20px 20px;
+    }
+    
+    .nav.active {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    
+    .nav-links li {
+        margin: 0;
+    }
+    
+    .nav-link {
+        display: block;
+        padding: 14px 20px;
+        text-align: center;
+    }
+    
+    .nav-login-btn {
+        display: flex !important;
+        justify-content: center;
+        margin-top: 10px;
+    }
+    
+    .nav-login-btn-gradient {
+        padding: 3px;
+    }
+    
+    .nav-login-btn-gradient a {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .nav-links .nav-login-btn {
+        padding: 14px 28px;
+        font-size: 15px;
+    }
+}
+
+/* Dashboard Sidebar Buttons */
+.sidebar-home-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--dark);
+    border: 2px solid rgba(211, 84, 0, 0.3);
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 13px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.sidebar-home-btn:hover {
+    background: rgba(211, 84, 0, 0.1);
+    border-color: var(--primary);
+    transform: translateX(-3px);
+}
+
+.sidebar-home-btn i {
+    font-size: 14px;
+}
+
+.sidebar-logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(211, 84, 0, 0.3);
+}
+
+.sidebar-logout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(211, 84, 0, 0.4);
+}
+
+.sidebar-logout-btn i {
+    font-size: 14px;
+}
+

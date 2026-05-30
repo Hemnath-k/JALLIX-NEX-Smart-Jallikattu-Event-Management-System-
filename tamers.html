@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamer Management | JALLIX-NEX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/tamers.css">
+    
+    <style>
+        .page-header {
+            min-height: 500px !important;
+            height: 60vh;
+            max-height: 700px;
+        }
+        .table-actions .form-control {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    min-width: 175px;
+}
+    </style>
+</head>
+<body class="tamers-page">
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="images/bullicon.png" alt="Bull Icon" style="width: 40px; height: 40px;">
+                </div>
+                <div class="logo-text">JALLIX<span>NEX</span></div>
+            </div>
+            
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav class="nav">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="events.html" class="nav-link">Events</a></li>
+                    <li><a href="bulls.html" class="nav-link">Bulls</a></li>
+                    <li><a href="tamers.html" class="nav-link active">Tamers</a></li>
+                    <li><a href="sponsors.html" class="nav-link">Sponsors</a></li>
+                    <!-- <li><a href="participants.html" class="nav-link">Register</a></li> -->
+                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li>
+                        <a href="login.html" class="nav-login-btn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Login</span>
+                            <span class="btn-shine"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Tamer Management Section -->
+    <section class="page-header">
+        <div class="header-video-bg">
+            <video autoplay muted loop playsinline poster="images/bull.png">
+                <source src="videos/backgroundvideo4.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="header-video-overlay"></div>
+        </div>
+        <div class="container">
+            <h1>Tamer Registration & Management</h1>
+            <p>Register tamers, manage certifications, and process event applications</p>
+        </div>
+    </section>
+    <!-- <section class="page-header">
+        <div class="header-video-bg">
+            <video autoplay muted loop playsinline poster="images/bull.png">
+                <source src="videos/bull-video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="header-video-overlay"></div>
+        </div>
+        <div class="container">
+            <h1>Tamer Registration & Management</h1>
+            <p>Register tamers, manage certifications, and process event applications</p>
+        </div>
+    </section> -->
+
+    <section class="dashboard">
+        <div class="container">
+            <div class="section-header">
+                <h2>Tamer Management</h2>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="registerTamerBtn">
+                        <i class="fas fa-plus"></i> Register New Tamer
+                    </button>
+                    <button class="btn btn-outline" id="exportTamerBtn">
+                        <i class="fas fa-download"></i> Export Data
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tamer Statistics -->
+            <div class="stats-grid mb-30">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>127</h3>
+                        <p>Total Tamers</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>89</h3>
+                        <p>Active Tamers</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>23</h3>
+                        <p>Pending Approvals</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>45</h3>
+                        <p>Event Applications</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tamer Registration Form -->
+            <div class="form-container card mb-30" id="tamerRegistrationForm" style="display: none;">
+                <h3 class="form-title">Register New Tamer</h3>
+                <form id="tamerForm">
+                    <div class="form-section">
+                        <h4>Personal Information</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tamerFirstName">First Name *</label>
+                                <input type="text" id="tamerFirstName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tamerLastName">Last Name *</label>
+                                <input type="text" id="tamerLastName" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tamerEmail">Email Address *</label>
+                                <input type="email" id="tamerEmail" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tamerPhone">Phone Number *</label>
+                                <input type="tel" id="tamerPhone" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tamerAge">Age *</label>
+                                <input type="number" id="tamerAge" class="form-control" min="18" max="60" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tamerGender">Gender *</label>
+                                <select id="tamerGender" class="form-control" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tamerHeight">Height (cm)</label>
+                                <input type="number" id="tamerHeight" class="form-control" min="140" max="200">
+                            </div>
+                            <div class="form-group">
+                                <label for="tamerWeight">Weight (kg)</label>
+                                <input type="number" id="tamerWeight" class="form-control" min="40" max="120">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tamerAddress">Address *</label>
+                            <textarea id="tamerAddress" class="form-control" rows="2" required></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tamerCity">City *</label>
+                                <input type="text" id="tamerCity" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tamerState">State *</label>
+                                <input type="text" id="tamerState" class="form-control" value="Tamil Nadu" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Experience & Qualifications</h4>
+                        <div class="form-group">
+                            <label for="tamerExperience">Years of Experience *</label>
+                            <select id="tamerExperience" class="form-control" required>
+                                <option value="">Select Experience</option>
+                                <option value="0-1">0-1 year (Beginner)</option>
+                                <option value="1-3">1-3 years (Intermediate)</option>
+                                <option value="3-5">3-5 years (Experienced)</option>
+                                <option value="5-10">5-10 years (Expert)</option>
+                                <option value="10+">10+ years (Master)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tamerSpecialization">Specialization</label>
+                            <select id="tamerSpecialization" class="form-control">
+                                <option value="">Select Specialization</option>
+                                <option value="traditional">Traditional Jallikattu</option>
+                                <option value="championship">Championship Events</option>
+                                <option value="training">Bull Training</option>
+                                <option value="safety">Safety Management</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tamerEvents">Previous Events Participated</label>
+                            <textarea id="tamerEvents" class="form-control" rows="3" placeholder="List events participated in with dates and locations"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tamerAchievements">Achievements & Awards</label>
+                            <textarea id="tamerAchievements" class="form-control" rows="3" placeholder="Any awards, recognitions, or special achievements"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tamerTraining">Training/Certifications Received</label>
+                            <textarea id="tamerTraining" class="form-control" rows="2" placeholder="Any formal training or certifications"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Medical & Safety Information</h4>
+                        <div class="form-group">
+                            <label for="tamerBloodGroup">Blood Group</label>
+                            <select id="tamerBloodGroup" class="form-control">
+                                <option value="">Select Blood Group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tamerMedicalConditions">Known Medical Conditions</label>
+                            <textarea id="tamerMedicalConditions" class="form-control" rows="2" placeholder="Any known medical conditions or allergies"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tamerEmergencyContact">Emergency Contact *</label>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" id="emergencyName" class="form-control" placeholder="Contact Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" id="emergencyPhone" class="form-control" placeholder="Phone Number" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Documents & Certificates</h4>
+                        <div class="form-group">
+                            <label>Aadhaar Card / ID Proof *</label>
+                            <div class="file-upload">
+                                <i class="fas fa-id-card"></i>
+                                <p>Click to upload ID proof (PDF, JPG, PNG)</p>
+                                <input type="file" id="idProof" accept=".pdf,.jpg,.jpeg,.png" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Medical Fitness Certificate *</label>
+                            <div class="file-upload">
+                                <i class="fas fa-file-medical"></i>
+                                <p>Click to upload medical certificate (PDF, JPG, PNG)</p>
+                                <input type="file" id="medicalCertificate" accept=".pdf,.jpg,.jpeg,.png" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Passport Size Photo *</label>
+                            <div class="file-upload">
+                                <i class="fas fa-user-circle"></i>
+                                <p>Click to upload passport size photo (JPG, PNG)</p>
+                                <input type="file" id="tamerPhoto" accept=".jpg,.jpeg,.png" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Additional Certificates (Optional)</label>
+                            <div class="file-upload">
+                                <i class="fas fa-file-certificate"></i>
+                                <p>Click to upload additional certificates</p>
+                                <input type="file" id="additionalCerts" accept=".pdf,.jpg,.jpeg,.png">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Payment Information</h4>
+                        <div class="form-group">
+                            <div class="payment-info">
+                                <div class="payment-item">
+                                    <span>Registration Fee</span>
+                                    <span class="price">₹1,000</span>
+                                </div>
+                                <div class="payment-item">
+                                    <span>Medical Certificate Verification</span>
+                                    <span class="price">₹300</span>
+                                </div>
+                                <div class="payment-item total">
+                                    <strong>Total Amount</strong>
+                                    <strong class="price">₹1,300</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tamerPaymentMethod">Payment Method *</label>
+                            <select id="tamerPaymentMethod" class="form-control" required>
+                                <option value="">Select Method</option>
+                                <option value="online">Online Payment</option>
+                                <option value="upi">UPI Payment</option>
+                                <option value="bank">Bank Transfer</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Declaration & Consent</h4>
+                        <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" id="declareTruth" required>
+                                <span>I declare that all information provided is true and accurate to the best of my knowledge.</span>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" id="agreeRisks" required>
+                                <span>I understand the risks involved in Jallikattu and participate voluntarily at my own risk.</span>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" id="followRules" required>
+                                <span>I agree to follow all safety rules, regulations, and instructions during events.</span>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" id="consentMedical" required>
+                                <span>I consent to emergency medical treatment if required during events.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Submit Registration (₹1,300)</button>
+                        <button type="button" class="btn btn-outline" id="cancelTamerForm">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Tamers List -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3>Registered Tamers</h3>
+                    <div class="table-actions">
+                        <input type="text" id="searchTamers" class="form-control" placeholder="Search tamers..." style="width: 200px;">
+                        <select id="filterExperience" class="form-control" style="width: 150px;">
+                            <option value="">All Experience</option>
+                            <option value="beginner">Beginner (0-1 year)</option>
+                            <option value="intermediate">Intermediate (1-3 years)</option>
+                            <option value="experienced">Experienced (3-5 years)</option>
+                            <option value="expert">Expert (5+ years)</option>
+                        </select>
+                        <select id="filterCertification" class="form-control" style="width: 150px;">
+                            <option value="">Certification Status</option>
+                            <option value="valid">Valid</option>
+                            <option value="expiring">Expiring Soon</option>
+                            <option value="expired">Expired</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Tamer Name</th>
+                            <th>Experience</th>
+                            <th>Location</th>
+                            <th>Medical Certificate</th>
+                            <th>Status</th>
+                            <th>Events Applied</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tamersTableBody">
+                        <!-- Tamers will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">JALLIX<span>NEX</span></div>
+                    <p>Next Generation Jallikattu Event Intelligence and Management System. Preserving tradition through technology.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Tamer Resources</h4>
+                    <ul>
+                        <li><a href="#">Safety Guidelines</a></li>
+                        <li><a href="#">Training Programs</a></li>
+                        <li><a href="#">Medical Requirements</a></li>
+                        <li><a href="#">Event Rules</a></li>
+                        <li><a href="#">Insurance Information</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="bulls.html">Bull Registration</a></li>
+                        <li><a href="tamers.html">Tamer Registration</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contact for Tamers</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> tamers@jallixnex.com</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43212</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Coimbatore, Tamil Nadu</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 JALLIX-NEX. All rights reserved. | Designed for Next Generation Jallikattu Management</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/tamers.js"></script>
+</body>
+</html>

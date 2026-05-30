@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sponsors | JALLIX-NEX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <style>
+        .page-header {
+            min-height: 400px;
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/home.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            width: 100%;
+        }
+        
+        .page-header p {
+            font-size: 1.5rem;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .sponsors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .sponsor-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-top: 5px solid var(--primary);
+        }
+
+        .sponsor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .sponsor-amount {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(211, 84, 0, 0.1);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .sponsor-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .sponsor-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .sponsor-designation {
+            font-size: 1rem;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .sponsor-desc {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        
+        .admin-controls {
+            margin-top: 15px;
+            display: none; /* Shown only for admins */
+        }
+    </style>
+</head>
+<body class="sponsors-page">
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="images/bullicon.png" alt="Bull Icon" style="width: 40px; height: 40px;">
+                </div>
+                <div class="logo-text">JALLIX<span>NEX</span></div>
+            </div>
+            
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav class="nav">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="events.html" class="nav-link">Events</a></li>
+                    <li><a href="bulls.html" class="nav-link">Bulls</a></li>
+                    <li><a href="tamers.html" class="nav-link">Tamers</a></li>
+                    <li><a href="sponsors.html" class="nav-link active">Sponsors</a></li>
+                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li>
+                        <a href="login.html" class="nav-login-btn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Login</span>
+                            <span class="btn-shine"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container text-center">
+            <h1>Our Sponsors</h1>
+            <p>We extend our gratitude to those who make the preservation of Jallikattu tradition possible</p>
+        </div>
+    </section>
+
+    <section class="dashboard">
+        <div class="container">
+            <div class="section-header">
+                <h2>Honorable Sponsors</h2>
+                <div class="header-actions" id="adminActions" style="display: none;">
+                    <button class="btn btn-primary" id="createSponsorBtn">
+                        <i class="fas fa-plus"></i> Add Sponsor
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sponsors Grid -->
+            <div class="sponsors-grid" id="sponsorsContainer">
+                <div style="text-align: center; width: 100%; grid-column: 1 / -1; padding: 50px;">
+                    <i class="fas fa-spinner fa-spin fa-3x" style="color: var(--primary);"></i>
+                    <p style="margin-top: 15px;">Loading sponsors...</p>
+                </div>
+            </div>
+
+            <!-- Sponsor Creation Form -->
+            <div class="form-container card mb-30" id="sponsorCreationForm" style="display: none; margin-top: 40px;">
+                <h3 class="form-title">Add New Sponsor</h3>
+                <form id="sponsorForm">
+                    <div class="form-section">
+                        <h4>Sponsor Details</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="sponsorName">Name / Organization *</label>
+                                <input type="text" id="sponsorName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="sponsorAmount">Contribution Amount (₹) *</label>
+                                <input type="number" id="sponsorAmount" class="form-control" required min="1">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="sponsorDesignation">Designation / Title</label>
+                                <input type="text" id="sponsorDesignation" class="form-control" placeholder="e.g. Gold Sponsor, Local Leader">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sponsorDescription">Description</label>
+                            <textarea id="sponsorDescription" class="form-control" rows="3" placeholder="Brief note of gratitude or description of contribution"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save Sponsor</button>
+                        <button type="button" class="btn btn-outline" id="cancelSponsorForm">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2023 JALLIX-NEX. All rights reserved. | Designed for Next Generation Jallikattu Management</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/sponsors.js"></script>
+</body>
+</html>

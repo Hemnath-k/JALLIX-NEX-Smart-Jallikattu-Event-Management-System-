@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment System | JALLIX-NEX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="payments-page">
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="logo-text">JALLIX<span>NEX</span></div>
+            </div>
+            
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav class="nav">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="events.html" class="nav-link">Events</a></li>
+                    <li><a href="bulls.html" class="nav-link">Bulls</a></li>
+                    <li><a href="tamers.html" class="nav-link">Tamers</a></li>
+                    <li><a href="sponsors.html" class="nav-link">Sponsors</a></li>
+                    <li><a href="participants.html" class="nav-link">Register</a></li>
+                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li><a href="login.html" class="btn btn-outline btn-sm">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Payment System Section -->
+    <section class="page-header" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');">
+        <div class="container">
+            <h1>Payment & Financial Management</h1>
+            <p>Process payments, generate receipts, and manage financial transactions</p>
+        </div>
+    </section>
+
+    <section class="dashboard">
+        <div class="container">
+            <div class="section-header">
+                <h2>Payment Dashboard</h2>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="processPaymentBtn">
+                        <i class="fas fa-plus"></i> Process Payment
+                    </button>
+                    <button class="btn btn-outline" id="generateReportBtn">
+                        <i class="fas fa-file-export"></i> Generate Report
+                    </button>
+                </div>
+            </div>
+
+            <!-- Payment Statistics -->
+            <div class="stats-grid mb-30">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>₹2,84,500</h3>
+                        <p>Total Revenue</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>156</h3>
+                        <p>Completed Payments</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>23</h3>
+                        <p>Pending Payments</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>8</h3>
+                        <p>Failed Payments</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Processing Form -->
+            <div class="form-container card mb-30" id="paymentProcessingForm" style="display: none;">
+                <h3 class="form-title">Process New Payment</h3>
+                <form id="paymentForm">
+                    <div class="form-section">
+                        <h4>Payment Details</h4>
+                        <div class="form-group">
+                            <label for="paymentType">Payment Type *</label>
+                            <select id="paymentType" class="form-control" required>
+                                <option value="">Select Payment Type</option>
+                                <option value="bull_registration">Bull Registration</option>
+                                <option value="tamer_registration">Tamer Registration</option>
+                                <option value="event_booking">Event Slot Booking</option>
+                                <option value="certificate_renewal">Certificate Renewal</option>
+                                <option value="fine">Fine/Penalty</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="payerName">Payer Name *</label>
+                                <input type="text" id="payerName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="payerEmail">Payer Email</label>
+                                <input type="email" id="payerEmail" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="payerPhone">Phone Number *</label>
+                                <input type="tel" id="payerPhone" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="amount">Amount (₹) *</label>
+                                <input type="number" id="amount" class="form-control" min="0" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="paymentDescription">Description</label>
+                            <textarea id="paymentDescription" class="form-control" rows="2" placeholder="Description of the payment"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="referenceId">Reference ID</label>
+                            <input type="text" id="referenceId" class="form-control" placeholder="Bull/Tamer/Event ID">
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Payment Method</h4>
+                        <div class="payment-methods">
+                            <div class="payment-method-option">
+                                <input type="radio" id="methodOnline" name="paymentMethod" value="online" checked>
+                                <label for="methodOnline">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Online Payment</span>
+                                    <small>Credit/Debit Card, Net Banking</small>
+                                </label>
+                            </div>
+                            
+                            <div class="payment-method-option">
+                                <input type="radio" id="methodUPI" name="paymentMethod" value="upi">
+                                <label for="methodUPI">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>UPI Payment</span>
+                                    <small>Google Pay, PhonePe, Paytm</small>
+                                </label>
+                            </div>
+                            
+                            <div class="payment-method-option">
+                                <input type="radio" id="methodBank" name="paymentMethod" value="bank">
+                                <label for="methodBank">
+                                    <i class="fas fa-university"></i>
+                                    <span>Bank Transfer</span>
+                                    <small>NEFT, RTGS, IMPS</small>
+                                </label>
+                            </div>
+                            
+                            <div class="payment-method-option">
+                                <input type="radio" id="methodCash" name="paymentMethod" value="cash">
+                                <label for="methodCash">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    <span>Cash Payment</span>
+                                    <small>In-person payment</small>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Online Payment Details -->
+                        <div class="payment-details" id="onlineDetails" style="display: block;">
+                            <div class="form-group">
+                                <label for="cardNumber">Card Number *</label>
+                                <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9012 3456">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cardExpiry">Expiry Date *</label>
+                                    <input type="text" id="cardExpiry" class="form-control" placeholder="MM/YY">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cardCVC">CVC *</label>
+                                    <input type="text" id="cardCVC" class="form-control" placeholder="123">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cardName">Name on Card *</label>
+                                <input type="text" id="cardName" class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- UPI Payment Details -->
+                        <div class="payment-details" id="upiDetails" style="display: none;">
+                            <div class="form-group">
+                                <label for="upiId">UPI ID *</label>
+                                <input type="text" id="upiId" class="form-control" placeholder="username@bank">
+                            </div>
+                            <div class="form-group">
+                                <p>Scan QR Code to pay:</p>
+                                <div class="qr-code">
+                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=JALLIX-NEX-PAYMENT" alt="QR Code">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bank Transfer Details -->
+                        <div class="payment-details" id="bankDetails" style="display: none;">
+                            <div class="bank-info">
+                                <h5>Bank Account Details</h5>
+                                <div class="bank-detail">
+                                    <span>Account Name:</span>
+                                    <strong>JALLIX-NEX Events Management</strong>
+                                </div>
+                                <div class="bank-detail">
+                                    <span>Account Number:</span>
+                                    <strong>123456789012</strong>
+                                </div>
+                                <div class="bank-detail">
+                                    <span>IFSC Code:</span>
+                                    <strong>SBIN0001234</strong>
+                                </div>
+                                <div class="bank-detail">
+                                    <span>Bank Name:</span>
+                                    <strong>State Bank of India</strong>
+                                </div>
+                                <div class="bank-detail">
+                                    <span>Branch:</span>
+                                    <strong>Madurai Main Branch</strong>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="transactionId">Transaction/UTR Number *</label>
+                                <input type="text" id="transactionId" class="form-control" placeholder="Enter transaction reference">
+                            </div>
+                        </div>
+
+                        <!-- Cash Payment Details -->
+                        <div class="payment-details" id="cashDetails" style="display: none;">
+                            <div class="form-group">
+                                <label for="cashReceiptNo">Receipt Number *</label>
+                                <input type="text" id="cashReceiptNo" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="cashCollectedBy">Collected By *</label>
+                                <input type="text" id="cashCollectedBy" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="cashLocation">Collection Location</label>
+                                <input type="text" id="cashLocation" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Receipt Generation</h4>
+                        <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" id="sendReceipt" checked>
+                                <span>Send receipt to payer's email</span>
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" id="sendSMS">
+                                <span>Send SMS notification</span>
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" id="autoApprove" checked>
+                                <span>Auto-approve after payment</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Process Payment</button>
+                        <button type="button" class="btn btn-outline" id="cancelPaymentForm">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Tabs for Payment Management -->
+            <div class="tabs-container mb-30">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="all">All Payments</button>
+                    <button class="tab-btn" data-tab="pending">Pending</button>
+                    <button class="tab-btn" data-tab="completed">Completed</button>
+                    <button class="tab-btn" data-tab="failed">Failed</button>
+                    <button class="tab-btn" data-tab="refunds">Refunds</button>
+                </div>
+            </div>
+
+            <!-- Payments Table -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3>Payment Transactions</h3>
+                    <div class="table-actions">
+                        <input type="text" id="searchPayments" class="form-control" placeholder="Search payments..." style="width: 200px;">
+                        <input type="date" id="filterDate" class="form-control" style="width: 150px;">
+                        <select id="filterType" class="form-control" style="width: 150px;">
+                            <option value="">All Types</option>
+                            <option value="registration">Registration</option>
+                            <option value="booking">Booking</option>
+                            <option value="renewal">Renewal</option>
+                            <option value="fine">Fine</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Payment ID</th>
+                            <th>Date & Time</th>
+                            <th>Payer</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Method</th>
+                            <th>Status</th>
+                            <th>Receipt</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paymentsTableBody">
+                        <!-- Payments will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Financial Summary -->
+            <div class="financial-summary card mt-30">
+                <h3>Financial Summary</h3>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <h4>Total Revenue</h4>
+                        <p class="amount">₹2,84,500</p>
+                        <small>This month: ₹45,200</small>
+                    </div>
+                    <div class="summary-item">
+                        <h4>Registration Fees</h4>
+                        <p class="amount">₹1,85,000</p>
+                        <small>65% of total</small>
+                    </div>
+                    <div class="summary-item">
+                        <h4>Booking Fees</h4>
+                        <p class="amount">₹75,500</p>
+                        <small>26% of total</small>
+                    </div>
+                    <div class="summary-item">
+                        <h4>Other Income</h4>
+                        <p class="amount">₹24,000</p>
+                        <small>9% of total</small>
+                    </div>
+                </div>
+                
+                <div class="summary-chart">
+                    <h4>Revenue by Category</h4>
+                    <div class="chart-container">
+                        <div class="chart-bar" style="width: 65%; background-color: var(--primary);">
+                            <span>Registration Fees</span>
+                            <span>65%</span>
+                        </div>
+                        <div class="chart-bar" style="width: 26%; background-color: var(--secondary);">
+                            <span>Booking Fees</span>
+                            <span>26%</span>
+                        </div>
+                        <div class="chart-bar" style="width: 9%; background-color: var(--info);">
+                            <span>Other</span>
+                            <span>9%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">JALLIX<span>NEX</span></div>
+                    <p>Next Generation Jallikattu Event Intelligence and Management System. Preserving tradition through technology.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Payment Methods</h4>
+                    <ul>
+                        <li><i class="fas fa-credit-card"></i> Credit/Debit Cards</li>
+                        <li><i class="fas fa-mobile-alt"></i> UPI Payments</li>
+                        <li><i class="fas fa-university"></i> Net Banking</li>
+                        <li><i class="fas fa-money-bill-wave"></i> Cash Payments</li>
+                        <li><i class="fas fa-qrcode"></i> QR Code Payments</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="bulls.html">Bull Registration</a></li>
+                        <li><a href="tamers.html">Tamer Registration</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Financial Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> payments@jallixnex.com</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43213</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 9AM-6PM</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 JALLIX-NEX. All rights reserved. | Designed for Next Generation Jallikattu Management</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/payments.js"></script>
+</body>
+</html>

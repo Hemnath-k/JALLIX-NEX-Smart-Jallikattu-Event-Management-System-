@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JALLIX-NEX | Next Generation Jallikattu Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary: #c62828;
+            --primary-dark: #8e0000;
+            --primary-light: #ff5f52;
+            --secondary: #f9a825;
+            --secondary-dark: #c17900;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --info: #17a2b8;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+        
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background-color: #f5f7fa;
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Roboto Slab', serif;
+            font-weight: 600;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 24px;
+            border-radius: var(--radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--dark);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            color: var(--primary);
+            font-size: 32px;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-family: 'Roboto Slab', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .logo-text span {
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            font-weight: 500;
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            box-shadow: var(--shadow);
+            border-radius: var(--radius);
+            min-width: 200px;
+            padding: 10px 0;
+            display: none;
+            z-index: 100;
+        }
+        
+        .user-profile:hover .user-dropdown {
+            display: block;
+        }
+        
+        .user-dropdown li {
+            padding: 10px 20px;
+            transition: var(--transition);
+        }
+        
+        .user-dropdown li:hover {
+            background-color: rgba(198, 40, 40, 0.1);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1546182993-4d2c3a28b76f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(198, 40, 40, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--primary);
+            font-size: 28px;
+        }
+        
+        /* Dashboard */
+        .dashboard {
+            padding: 50px 0;
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 25px;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+            color: var(--gray);
+        }
+        
+        /* Forms */
+        .form-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 40px;
+        }
+        
+        .form-title {
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--dark);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--radius);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.2);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .file-upload {
+            border: 2px dashed #ddd;
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .file-upload:hover {
+            border-color: var(--primary);
+        }
+        
+        .file-upload i {
+            font-size: 40px;
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 30px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: var(--shadow);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        
+        .data-table th {
+            background-color: var(--primary);
+            color: white;
+            text-align: left;
+            padding: 15px;
+            font-weight: 600;
+        }
+        
+        .data-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .data-table tr:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .status-pending {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: var(--warning);
+        }
+        
+        .status-approved {
+            background-color: rgba(40, 167, 69, 0.2);
+            color: var(--success);
+        }
+        
+        .status-rejected {
+            background-color: rgba(220, 53, 69, 0.2);
+            color: var(--danger);
+        }
+        
+        /* Event Cards */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .event-card {
+            position: relative;
+        }
+        
+        .event-date {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 15px;
+            border-radius: var(--radius);
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .event-date .day {
+            font-size: 24px;
+            line-height: 1;
+        }
+        
+        .event-date .month {
+            font-size: 14px;
+        }
+        
+        .event-info {
+            margin-top: 15px;
+        }
+        
+        .event-info h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        
+        .event-meta {
+            display: flex;
+            margin-bottom: 15px;
+            color: var(--gray);
+        }
+        
+        .event-meta span {
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .event-meta i {
+            margin-right: 5px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-family: 'Roboto Slab', serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .footer-logo span {
+            color: var(--primary);
+        }
+        
+        .footer-links h4 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+        
+        /* Page-specific styles */
+        .page-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .role-selector {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .role-card {
+            width: 180px;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: white;
+            color: var(--dark);
+        }
+        
+        .role-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+        }
+        
+        .role-card.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .role-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .nav-links li {
+                margin: 0 0 15px 0;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .form-container {
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 70px 0;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mt-20 {
+            margin-top: 20px;
+        }
+        
+        .mt-30 {
+            margin-top: 30px;
+        }
+        
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+        
+        .mb-30 {
+            margin-bottom: 30px;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="logo-text">JALLIX<span>NEX</span></div>
+            </div>
+            
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home" class="nav-link active" data-page="home">Home</a></li>
+                    <li><a href="#events" class="nav-link" data-page="events">Events</a></li>
+                    <li><a href="#bulls" class="nav-link" data-page="bulls">Bulls</a></li>
+                    <li><a href="#tamers" class="nav-link" data-page="tamers">Tamers</a></li>
+                    <li><a href="#dashboard" class="nav-link" data-page="dashboard">Dashboard</a></li>
+                    <li><a href="#about" class="nav-link" data-page="about">About</a></li>
+                </ul>
+            </nav>
+            
+            <div class="user-profile">
+                <div class="user-avatar">A</div>
+                <span>Admin User</span>
+                <ul class="user-dropdown">
+                    <li><a href="#profile"><i class="fas fa-user-circle"></i> Profile</a></li>
+                    <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
+                    <li><a href="#logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <section id="home" class="page active">
+        <div class="hero">
+            <div class="container">
+                <h1>Next Generation Jallikattu Event Intelligence & Management</h1>
+                <p>Streamline event organization, bull registration, tamer applications, and administrative tasks with our comprehensive platform designed for the modern Jallikattu ecosystem.</p>
+                <div class="role-selector">
+                    <a href="#register" class="btn btn-primary" style="margin-right: 15px;">Get Started</a>
+                    <a href="#events" class="btn btn-outline">View Events</a>
+                </div>
+            </div>
+        </div>
+        
+        <section class="features">
+            <div class="container">
+                <h2 class="section-title">System Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h3>Role-Based Access</h3>
+                        <p>Secure authentication system with different access levels for public users, bull owners, tamers, and administrators.</p>
+                    </div>
+                    
+                    <div class="feature-card card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <h3>Bull Registration</h3>
+                        <p>Register bulls with owner details, bull information, veterinary certificates, and images for verification.</p>
+                    </div>
+                    
+                    <div class="feature-card card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3>Tamer Registration</h3>
+                        <p>Tamers can register with personal details, experience records, and medical certificates for eligibility.</p>
+                    </div>
+                    
+                    <div class="feature-card card">
+                        <div class="feature-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3>Event Management</h3>
+                        <p>Create and manage events with details like location, date, maximum bulls, and registration deadlines.</p>
+                    </div>
+                    
+                    <div class="feature-card card">
+                        <div class="feature-icon">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <h3>Slot Booking</h3>
+                        <p>Approved bulls can book slots for events on a first-come, first-served basis with limited availability.</p>
+                    </div>
+                    
+                    <div class="feature-card card">
+                        <div class="feature-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h3>Payment System</h3>
+                        <p>Integrated payment gateway for registration fees, booking fees, and automatic receipt generation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- Events Page -->
+    <section id="events" class="page">
+        <div class="page-header">
+            <div class="container">
+                <h2>Upcoming Jallikattu Events</h2>
+                <p>Browse and apply for upcoming events in your region</p>
+            </div>
+        </div>
+        
+        <div class="dashboard">
+            <div class="container">
+                <div class="dashboard-header">
+                    <h2>Events</h2>
+                    <div>
+                        <button class="btn btn-primary" id="createEventBtn"><i class="fas fa-plus"></i> Create New Event</button>
+                    </div>
+                </div>
+                
+                <div class="events-grid">
+                    <div class="event-card card">
+                        <div class="event-date">
+                            <div class="day">15</div>
+                            <div class="month">JUL</div>
+                        </div>
+                        <div class="event-info">
+                            <h3>Madurai Jallikattu Championship 2023</h3>
+                            <div class="event-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Madurai, Tamil Nadu</span>
+                                <span><i class="fas fa-bull"></i> Max: 75 Bulls</span>
+                            </div>
+                            <p>The biggest Jallikattu event in the region with participation from top bulls and tamers across the state.</p>
+                            <div class="event-meta">
+                                <span><i class="fas fa-calendar"></i> Deadline: 10 Jul 2023</span>
+                                <span class="status-badge status-approved">Open</span>
+                            </div>
+                            <button class="btn btn-primary mt-20">View Details</button>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card card">
+                        <div class="event-date">
+                            <div class="day">22</div>
+                            <div class="month">JUL</div>
+                        </div>
+                        <div class="event-info">
+                            <h3>Alanganallur Traditional Jallikattu</h3>
+                            <div class="event-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Alanganallur, Madurai</span>
+                                <span><i class="fas fa-bull"></i> Max: 50 Bulls</span>
+                            </div>
+                            <p>Traditional event following centuries-old practices with strict adherence to cultural norms.</p>
+                            <div class="event-meta">
+                                <span><i class="fas fa-calendar"></i> Deadline: 18 Jul 2023</span>
+                                <span class="status-badge status-approved">Open</span>
+                            </div>
+                            <button class="btn btn-primary mt-20">View Details</button>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card card">
+                        <div class="event-date">
+                            <div class="day">05</div>
+                            <div class="month">AUG</div>
+                        </div>
+                        <div class="event-info">
+                            <h3>Pongal Special Jallikattu Festival</h3>
+                            <div class="event-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Tiruchirappalli</span>
+                                <span><i class="fas fa-bull"></i> Max: 60 Bulls</span>
+                            </div>
+                            <p>Special event celebrating Pongal festival with traditional rituals and ceremonies.</p>
+                            <div class="event-meta">
+                                <span><i class="fas fa-calendar"></i> Deadline: 30 Jul 2023</span>
+                                <span class="status-badge status-pending">Upcoming</span>
+                            </div>
+                            <button class="btn btn-primary mt-20">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bulls Page -->
+    <section id="bulls" class="page">
+        <div class="page-header">
+            <div class="container">
+                <h2>Bull Registration & Management</h2>
+                <p>Register your bulls, upload certificates, and manage bookings</p>
+            </div>
+        </div>
+        
+        <div class="dashboard">
+            <div class="container">
+                <div class="dashboard-header">
+                    <h2>Registered Bulls</h2>
+                    <div>
+                        <button class="btn btn-primary" id="registerBullBtn"><i class="fas fa-plus"></i> Register New Bull</button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Bull Name</th>
+                                <th>Owner</th>
+                                <th>Breed</th>
+                                <th>Age</th>
+                                <th>Certification</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Vira</td>
+                                <td>Raja Kumar</td>
+                                <td>Kangayam</td>
+                                <td>4 years</td>
+                                <td><span class="status-badge status-approved">Verified</span></td>
+                                <td><span class="status-badge status-approved">Active</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 14px;">View</button>
+                                    <button class="btn btn-outline" style="padding: 5px 10px; font-size: 14px;">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Simha</td>
+                                <td>Muthu Vel</td>
+                                <td>Pulikulam</td>
+                                <td>5 years</td>
+                                <td><span class="status-badge status-approved">Verified</span></td>
+                                <td><span class="status-badge status-approved">Active</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 14px;">View</button>
+                                    <button class="btn btn-outline" style="padding: 5px 10px; font-size: 14px;">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Rana</td>
+                                <td>Karthik Subramanian</td>
+                                <td>Bargur</td>
+                                <td>3.5 years</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td><span class="status-badge status-pending">In Review</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 14px;">View</button>
+                                    <button class="btn btn-outline" style="padding: 5px 10px; font-size: 14px;">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Bheema</td>
+                                <td>Siva Prakash</td>
+                                <td>Umblachery</td>
+                                <td>6 years</td>
+                                <td><span class="status-badge status-approved">Verified</span></td>
+                                <td><span class="status-badge status-approved">Active</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 14px;">View</button>
+                                    <button class="btn btn-outline" style="padding: 5px 10px; font-size: 14px;">Edit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Bull Registration Form (Hidden by default) -->
+                <div id="bullRegistrationForm" class="form-container card hidden">
+                    <h2 class="form-title">Register New Bull</h2>
+                    <form id="bullForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bullName">Bull Name *</label>
+                                <input type="text" id="bullName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="bullBreed">Breed *</label>
+                                <select id="bullBreed" class="form-control" required>
+                                    <option value="">Select Breed</option>
+                                    <option value="kangayam">Kangayam</option>
+                                    <option value="pulikulam">Pulikulam</option>
+                                    <option value="bargur">Bargur</option>
+                                    <option value="umblachery">Umblachery</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bullAge">Age (years) *</label>
+                                <input type="number" id="bullAge" class="form-control" min="1" max="15" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="bullColor">Color/Markings</label>
+                                <input type="text" id="bullColor" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="ownerName">Owner Name *</label>
+                            <input type="text" id="ownerName" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ownerPhone">Owner Phone *</label>
+                                <input type="tel" id="ownerPhone" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ownerEmail">Owner Email *</label>
+                                <input type="email" id="ownerEmail" class="form-control" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Veterinary Fitness Certificate *</label>
+                            <div class="file-upload">
+                                <i class="fas fa-file-upload"></i>
+                                <p>Click to upload certificate (PDF, JPG, PNG)</p>
+                                <input type="file" id="vetCertificate" style="display: none;">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Bull Image *</label>
+                            <div class="file-upload">
+                                <i class="fas fa-camera"></i>
+                                <p>Click to upload bull image (JPG, PNG)</p>
+                                <input type="file" id="bullImage" style="display: none;">
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-30">
+                            <button type="submit" class="btn btn-primary" style="padding: 12px 40px;">Register Bull</button>
+                            <button type="button" class="btn btn-outline" id="cancelBullForm" style="margin-left: 15px;">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tamers Page -->
+    <section id="tamers" class="page">
+        <div class="page-header">
+            <div class="container">
+                <h2>Tamer Registration & Management</h2>
+                <p>Register as a tamer, upload certificates, and apply for events</p>
+            </div>
+        </div>
+        
+        <div class="dashboard">
+            <div class="container">
+                <div class="dashboard-header">
+                    <h2>Registered Tamers</h2>
+                    <div>
+                        <button class="btn btn-primary" id="registerTamerBtn"><i class="fas fa-plus"></i> Register New Tamer</button>
+                    </div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card card">
+                        <div class="stat-number">127</div>
+                        <div class="stat-label">Total Tamers</div>
+                    </div>
+                    <div class="stat-card card">
+                        <div class="stat-number">89</div>
+                        <div class="stat-label">Active Tamers</div>
+                    </div>
+                    <div class="stat-card card">
+                        <div class="stat-number">23</div>
+                        <div class="stat-label">Pending Approvals</div>
+                    </div>
+                    <div class="stat-card card">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Applications This Month</div>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Tamer Name</th>
+                                <th>Experience</th>
+                                <th>Location</th>
+                                <th>Medical Certificate</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Kumaravel Murugan</td>
+                                <td>8 years</td>
+                                <td>Madurai</td>
+                                <td><span class="status-badge status-approved">Valid</span></td>
+                                <td><span class="status-badge status-approved">Approved</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 14px;">View</button>
+                                    <button class="btn btn-outline" style="padding: 5px 10px; font-size: 14px;">Verify</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Arunachalam Siva</td>
+                                <td>5 years</td>
+                                <td>Trichy</td>
+                                <td><span class="status-badge status-approved">Valid</span></td>
+                                <td><span class="status-badge status-approved">Approved</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 14px;">View</button>
+                                    <button class="btn btn-outline" style="padding: 5px 10px; font-size: 14px;">Verify</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Mohan Raj</td>
+                                <td>2 years</td>
+                                <td>Coimbatore</td>
+                                <td><span class="status-badge status-pending">Expiring Soon</span></td>
+                                <td><span class="status-badge status-pending">Under Review</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 14px;">View</button>
+                                    <button class="btn btn-outline" style="padding: 5px 10px; font-size: 14px;">Verify</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Prakash Venkatesh</td>
+                                <td>12 years</td>
+                                <td>Salem</td>
+                                <td><span class="status-badge status-approved">Valid</span></td>
+                                <td><span class="status-badge status-approved">Approved</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 14px;">View</button>
+                                    <button class="btn btn-outline" style="padding: 5px 10px; font-size: 14px;">Verify</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Page -->
+    <section id="dashboard" class="page">
+        <div class="page-header">
+            <div class="container">
+                <h2>Admin Dashboard</h2>
+                <p>Comprehensive overview and management tools for administrators</p>
+            </div>
+        </div>
+        
+        <div class="dashboard">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card card">
+                        <div class="stat-number">14</div>
+                        <div class="stat-label">Upcoming Events</div>
+                    </div>
+                    <div class="stat-card card">
+                        <div class="stat-number">236</div>
+                        <div class="stat-label">Registered Bulls</div>
+                    </div>
+                    <div class="stat-card card">
+                        <div class="stat-number">127</div>
+                        <div class="stat-label">Registered Tamers</div>
+                    </div>
+                    <div class="stat-card card">
+                        <div class="stat-number">₹2,84,500</div>
+                        <div class="stat-label">Total Revenue</div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-header">
+                    <h2>Pending Approvals</h2>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Name</th>
+                                <th>Submitted On</th>
+                                <th>Details</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-bull"></i> Bull Registration</td>
+                                <td>Rana (Bargur Breed)</td>
+                                <td>25 Jun 2023</td>
+                                <td>Age: 3.5 years, Owner: Karthik Subramanian</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 14px;">Review</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-user-tie"></i> Tamer Registration</td>
+                                <td>Mohan Raj</td>
+                                <td>24 Jun 2023</td>
+                                <td>Experience: 2 years, Location: Coimbatore</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 14px;">Review</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-ticket-alt"></i> Event Slot Booking</td>
+                                <td>Madurai Championship Slot #45</td>
+                                <td>23 Jun 2023</td>
+                                <td>Bull: Vira, Owner: Raja Kumar</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 14px;">Review</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-file-certificate"></i> Certificate Renewal</td>
+                                <td>Veterinary Certificate - Simha</td>
+                                <td>22 Jun 2023</td>
+                                <td>Bull: Simha, Expires: 30 Jun 2023</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 14px;">Review</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="dashboard-header mt-30">
+                    <h2>Recent Payments</h2>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Payment ID</th>
+                                <th>User</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PMT-7832</td>
+                                <td>Raja Kumar</td>
+                                <td>Bull Registration Fee - Vira</td>
+                                <td>₹2,500</td>
+                                <td>28 Jun 2023</td>
+                                <td><span class="status-badge status-approved">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>PMT-7831</td>
+                                <td>Muthu Vel</td>
+                                <td>Event Slot Booking - Alanganallur</td>
+                                <td>₹5,000</td>
+                                <td>27 Jun 2023</td>
+                                <td><span class="status-badge status-approved">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>PMT-7830</td>
+                                <td>Karthik Subramanian</td>
+                                <td>Bull Registration Fee - Rana</td>
+                                <td>₹2,500</td>
+                                <td>25 Jun 2023</td>
+                                <td><span class="status-badge status-pending">Processing</span></td>
+                            </tr>
+                            <tr>
+                                <td>PMT-7829</td>
+                                <td>Arunachalam Siva</td>
+                                <td>Tamer Registration Renewal</td>
+                                <td>₹1,000</td>
+                                <td>24 Jun 2023</td>
+                                <td><span class="status-badge status-approved">Completed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Page -->
+    <section id="about" class="page">
+        <div class="page-header">
+            <div class="container">
+                <h2>About JALLIX-NEX</h2>
+                <p>Revolutionizing Jallikattu event management through technology</p>
+            </div>
+        </div>
+        
+        <div class="dashboard">
+            <div class="container">
+                <div class="card">
+                    <h2 class="mb-20">Our Mission</h2>
+                    <p>JALLIX-NEX aims to modernize and streamline the organization, registration, and management of Jallikattu events while preserving the cultural significance and traditional values of this ancient sport. Our platform brings transparency, efficiency, and accessibility to all stakeholders involved.</p>
+                </div>
+                
+                <div class="card mt-20">
+                    <h2 class="mb-20">Key Features</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <h3><i class="fas fa-shield-alt"></i> Secure Authentication</h3>
+                            <p>Role-based access control with secure login for all user types.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3><i class="fas fa-bullhorn"></i> Bull Management</h3>
+                            <p>Complete registration and certificate management for bulls.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3><i class="fas fa-user-tie"></i> Tamer Portal</h3>
+                            <p>Registration, certification, and event application for tamers.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3><i class="fas fa-calendar-check"></i> Event Coordination</h3>
+                            <p>End-to-end event creation, management, and slot booking.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-20">
+                    <h2 class="mb-20">Contact Information</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <h3><i class="fas fa-envelope"></i> Email</h3>
+                            <p>admin@jallixnex.com</p>
+                        </div>
+                        <div class="form-group">
+                            <h3><i class="fas fa-phone"></i> Phone</h3>
+                            <p>+91 98765 43210</p>
+                        </div>
+                        <div class="form-group">
+                            <h3><i class="fas fa-map-marker-alt"></i> Address</h3>
+                            <p>Chennai, Tamil Nadu, India</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">JALLIX<span>NEX</span></div>
+                    <p>Next Generation Jallikattu Event Intelligence and Management System. Streamlining event organization, bull registration, tamer applications, and administrative tasks.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#events">Events</a></li>
+                        <li><a href="#bulls">Bull Registration</a></li>
+                        <li><a href="#tamers">Tamer Registration</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>User Roles</h4>
+                    <ul>
+                        <li><a href="#public">Public User</a></li>
+                        <li><a href="#owner">Bull Owner</a></li>
+                        <li><a href="#tamer">Tamer</a></li>
+                        <li><a href="#admin">Administrator</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> support@jallixnex.com</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 JALLIX-NEX. All rights reserved. | Designed for Next Generation Jallikattu Management</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        const navLinksItems = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+        const registerBullBtn = document.getElementById('registerBullBtn');
+        const bullRegistrationForm = document.getElementById('bullRegistrationForm');
+        const cancelBullForm = document.getElementById('cancelBullForm');
+        const bullForm = document.getElementById('bullForm');
+        const createEventBtn = document.getElementById('createEventBtn');
+        const registerTamerBtn = document.getElementById('registerTamerBtn');
+        const fileUploads = document.querySelectorAll('.file-upload');
+        
+        // Toggle mobile menu
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.querySelector('i').classList.toggle('fa-bars');
+            mobileMenuBtn.querySelector('i').classList.toggle('fa-times');
+        });
+        
+        // Navigation between pages
+        navLinksItems.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Get target page
+                const targetPage = link.getAttribute('data-page');
+                
+                // Update active nav link
+                navLinksItems.forEach(item => item.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Show target page
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                    if (page.id === targetPage) {
+                        page.classList.add('active');
+                    }
+                });
+                
+                // Close mobile menu if open
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                    mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                }
+            });
+        });
+        
+        // Show bull registration form
+        if (registerBullBtn) {
+            registerBullBtn.addEventListener('click', () => {
+                bullRegistrationForm.classList.remove('hidden');
+                window.scrollTo({
+                    top: bullRegistrationForm.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // Hide bull registration form
+        if (cancelBullForm) {
+            cancelBullForm.addEventListener('click', () => {
+                bullRegistrationForm.classList.add('hidden');
+            });
+        }
+        
+        // Handle bull form submission
+        if (bullForm) {
+            bullForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Get form data
+                const bullName = document.getElementById('bullName').value;
+                const bullBreed = document.getElementById('bullBreed').value;
+                
+                // Show success message
+                alert(`Bull "${bullName}" (${bullBreed}) has been registered successfully! The application is now pending approval.`);
+                
+                // Reset form and hide
+                bullForm.reset();
+                bullRegistrationForm.classList.add('hidden');
+            });
+        }
+        
+        // Handle create event button
+        if (createEventBtn) {
+            createEventBtn.addEventListener('click', () => {
+                alert('Event creation form would open here with fields for event name, location, date, max bulls, registration deadline, etc.');
+            });
+        }
+        
+        // Handle tamer registration button
+        if (registerTamerBtn) {
+            registerTamerBtn.addEventListener('click', () => {
+                alert('Tamer registration form would open here with fields for personal details, experience, medical certificate upload, etc.');
+            });
+        }
+        
+        // File upload interactions
+        fileUploads.forEach(upload => {
+            upload.addEventListener('click', () => {
+                const fileInput = upload.querySelector('input[type="file"]');
+                fileInput.click();
+            });
+        });
+        
+        // Simulate login/register functionality
+        const simulateLogin = () => {
+            // This would normally connect to a backend
+            console.log('Login/Register system would connect to Flask backend with password hashing');
+        };
+        
+        // Simulate role-based access
+        const checkUserRole = () => {
+            // This would check user role from session/token
+            const userRole = 'admin'; // Can be 'public', 'owner', 'tamer', 'admin'
+            console.log(`Current user role: ${userRole}`);
+            return userRole;
+        };
+        
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            simulateLogin();
+            checkUserRole();
+            
+            // Set up file upload change events
+            document.querySelectorAll('input[type="file"]').forEach(input => {
+                input.addEventListener('change', function() {
+                    const fileName = this.files[0] ? this.files[0].name : 'No file chosen';
+                    const uploadArea = this.closest('.file-upload');
+                    const icon = uploadArea.querySelector('i');
+                    const text = uploadArea.querySelector('p');
+                    
+                    if (this.files[0]) {
+                        icon.className = 'fas fa-file-check';
+                        icon.style.color = 'var(--success)';
+                        text.textContent = fileName;
+                        uploadArea.style.borderColor = 'var(--success)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Participant Registration | JALLIX-NEX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/participants.css">
+</head>
+<body class="registration-page" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1586975323491-6d3e56d3f3d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');">
+    <div class="registration-container">
+        <div class="registration-card">
+            <div class="registration-header">
+                <a href="index.html" class="registration-logo">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>JALLIX<span>NEX</span></span>
+                </a>
+                <h2>Participant Registration</h2>
+                <p>Choose your role and register as a participant</p>
+            </div>
+            
+            <!-- Role Selection -->
+            <div class="role-selection">
+                <h3>Select Your Role</h3>
+                <div class="role-options">
+                    <div class="role-option" data-role="public">
+                        <div class="role-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Public User</h4>
+                        <p>View events, read owner information, contact administrators</p>
+                    </div>
+                    
+                    <div class="role-option" data-role="owner">
+                        <div class="role-icon">
+                            <i class="fas fa-bull"></i>
+                        </div>
+                        <h4>Bull Owner</h4>
+                        <p>Register bulls, upload certificates, book event slots, pay fees</p>
+                    </div>
+                    
+                    <div class="role-option" data-role="tamer">
+                        <div class="role-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h4>Tamer</h4>
+                        <p>Register as tamer, upload certificates, apply for events</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Registration Forms -->
+            <div class="registration-forms">
+                <!-- Public User Form -->
+                <form id="publicForm" class="registration-form active">
+                    <h3>Public User Registration</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pubFirstName">First Name *</label>
+                            <input type="text" id="pubFirstName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pubLastName">Last Name *</label>
+                            <input type="text" id="pubLastName" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pubEmail">Email Address *</label>
+                        <input type="email" id="pubEmail" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pubPhone">Phone Number *</label>
+                        <input type="tel" id="pubPhone" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pubLocation">Location</label>
+                        <input type="text" id="pubLocation" class="form-control" placeholder="City, State">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pubInterests">Areas of Interest</label>
+                        <textarea id="pubInterests" class="form-control" rows="3" placeholder="Your interests related to Jallikattu events..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">Register as Public User</button>
+                </form>
+                
+                <!-- Bull Owner Form -->
+                <form id="ownerForm" class="registration-form">
+                    <h3>Bull Owner Registration</h3>
+                    
+                    <div class="form-section">
+                        <h4>Owner Information</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ownerFirstName">First Name *</label>
+                                <input type="text" id="ownerFirstName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ownerLastName">Last Name *</label>
+                                <input type="text" id="ownerLastName" class="form-control" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="ownerEmail">Email Address *</label>
+                            <input type="email" id="ownerEmail" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ownerPhone">Phone Number *</label>
+                                <input type="tel" id="ownerPhone" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ownerAadhaar">Aadhaar Number *</label>
+                                <input type="text" id="ownerAadhaar" class="form-control" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="ownerAddress">Address *</label>
+                            <textarea id="ownerAddress" class="form-control" rows="3" required></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h4>Bull Information</h4>
+                        <div class="form-group">
+                            <label for="bullName">Bull Name *</label>
+                            <input type="text" id="bullName" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bullBreed">Breed *</label>
+                                <select id="bullBreed" class="form-control" required>
+                                    <option value="">Select Breed</option>
+                                    <option value="kangayam">Kangayam</option>
+                                    <option value="pulikulam">Pulikulam</option>
+                                    <option value="bargur">Bargur</option>
+                                    <option value="umblachery">Umblachery</option>
+                                    <option value="other">Other Indigenous Breed</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="bullAge">Age (years) *</label>
+                                <input type="number" id="bullAge" class="form-control" min="1" max="15" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bullColor">Color/Markings</label>
+                                <input type="text" id="bullColor" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="bullWeight">Weight (approx. kg)</label>
+                                <input type="number" id="bullWeight" class="form-control" min="100" max="1000">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="bullHistory">Previous Event Participation</label>
+                            <textarea id="bullHistory" class="form-control" rows="3" placeholder="List any previous events participated in"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h4>Upload Documents</h4>
+                        <div class="form-group">
+                            <label>Owner ID Proof (Aadhaar, Driving License, etc.) *</label>
+                            <div class="file-upload">
+                                <i class="fas fa-id-card"></i>
+                                <p>Click to upload ID proof (PDF, JPG, PNG)</p>
+                                <input type="file" id="ownerIdProof" class="hidden" accept=".pdf,.jpg,.jpeg,.png">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Veterinary Fitness Certificate *</label>
+                            <div class="file-upload">
+                                <i class="fas fa-file-medical"></i>
+                                <p>Click to upload certificate (PDF, JPG, PNG)</p>
+                                <input type="file" id="vetCertificate" class="hidden" accept=".pdf,.jpg,.jpeg,.png">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Bull Images (Multiple allowed)</label>
+                            <div class="file-upload">
+                                <i class="fas fa-images"></i>
+                                <p>Click to upload bull images (JPG, PNG)</p>
+                                <input type="file" id="bullImages" class="hidden" accept=".jpg,.jpeg,.png" multiple>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h4>Payment Information</h4>
+                        <div class="form-group">
+                            <p>Registration Fee: <strong>₹2,500</strong> (per bull)</p>
+                            <p>This includes initial registration and certificate verification.</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="paymentMethod">Select Payment Method</label>
+                            <select id="paymentMethod" class="form-control">
+                                <option value="">Select Method</option>
+                                <option value="online">Online Payment</option>
+                                <option value="bank">Bank Transfer</option>
+                                <option value="upi">UPI Payment</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox">
+                            <input type="checkbox" required>
+                            <span>I agree to the terms and conditions and confirm that all information provided is accurate.</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">Submit Registration (₹2,500)</button>
+                </form>
+                
+                <!-- Tamer Form -->
+                <form id="tamerForm" class="registration-form">
+                    <h3>Tamer Registration</h3>
+                    
+                    <div class="form-section">
+                        <h4>Personal Information</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tamerFirstName">First Name *</label>
+                                <input type="text" id="tamerFirstName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tamerLastName">Last Name *</label>
+                                <input type="text" id="tamerLastName" class="form-control" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tamerEmail">Email Address *</label>
+                            <input type="email" id="tamerEmail" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tamerPhone">Phone Number *</label>
+                                <input type="tel" id="tamerPhone" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tamerAge">Age *</label>
+                                <input type="number" id="tamerAge" class="form-control" min="18" max="60" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tamerHeight">Height (cm)</label>
+                                <input type="number" id="tamerHeight" class="form-control" min="140" max="200">
+                            </div>
+                            <div class="form-group">
+                                <label for="tamerWeight">Weight (kg)</label>
+                                <input type="number" id="tamerWeight" class="form-control" min="40" max="120">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tamerAddress">Address *</label>
+                            <textarea id="tamerAddress" class="form-control" rows="3" required></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h4>Experience & Skills</h4>
+                        <div class="form-group">
+                            <label for="tamerExperience">Years of Experience *</label>
+                            <select id="tamerExperience" class="form-control" required>
+                                <option value="">Select Experience</option>
+                                <option value="0-1">0-1 year (Beginner)</option>
+                                <option value="1-3">1-3 years (Intermediate)</option>
+                                <option value="3-5">3-5 years (Experienced)</option>
+                                <option value="5+">5+ years (Expert)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tamerEvents">Previous Events Participated</label>
+                            <textarea id="tamerEvents" class="form-control" rows="3" placeholder="List events you've participated in with dates"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tamerAchievements">Achievements/Awards</label>
+                            <textarea id="tamerAchievements" class="form-control" rows="3" placeholder="Any awards or recognitions received"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h4>Upload Documents</h4>
+                        <div class="form-group">
+                            <label>Identity Proof *</label>
+                            <div class="file-upload">
+                                <i class="fas fa-id-card"></i>
+                                <p>Click to upload ID proof (PDF, JPG, PNG)</p>
+                                <input type="file" id="tamerIdProof" class="hidden" accept=".pdf,.jpg,.jpeg,.png">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Medical Fitness Certificate *</label>
+                            <div class="file-upload">
+                                <i class="fas fa-file-medical"></i>
+                                <p>Click to upload medical certificate (PDF, JPG, PNG)</p>
+                                <input type="file" id="medicalCertificate" class="hidden" accept=".pdf,.jpg,.jpeg,.png">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Passport Size Photo *</label>
+                            <div class="file-upload">
+                                <i class="fas fa-user-circle"></i>
+                                <p>Click to upload photo (JPG, PNG)</p>
+                                <input type="file" id="tamerPhoto" class="hidden" accept=".jpg,.jpeg,.png">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h4>Payment Information</h4>
+                        <div class="form-group">
+                            <p>Registration Fee: <strong>₹1,000</strong></p>
+                            <p>This includes registration and medical certificate verification.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox">
+                            <input type="checkbox" required>
+                            <span>I understand the risks involved in Jallikattu and agree to participate at my own risk.</span>
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox">
+                            <input type="checkbox" required>
+                            <span>I agree to follow all safety guidelines and rules during events.</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">Submit Registration (₹1,000)</button>
+                </form>
+            </div>
+            
+            <div class="registration-footer">
+                <p>Already have an account? <a href="login.html">Sign In</a></p>
+                <p>By registering, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Role selection for participant registration
+        document.addEventListener('DOMContentLoaded', function() {
+            const roleOptions = document.querySelectorAll('.role-option');
+            const registrationForms = document.querySelectorAll('.registration-form');
+            
+            roleOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const selectedRole = this.dataset.role;
+                    
+                    // Update active role option
+                    roleOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding registration form
+                    registrationForms.forEach(form => {
+                        form.classList.remove('active');
+                        if (form.id === `${selectedRole}Form`) {
+                            form.classList.add('active');
+                        }
+                    });
+                    
+                    // Store selected role
+                    localStorage.setItem('selectedRole', selectedRole);
+                });
+            });
+            
+            // Check for role parameter in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const roleParam = urlParams.get('role');
+            if (roleParam) {
+                const targetOption = document.querySelector(`.role-option[data-role="${roleParam}"]`);
+                if (targetOption) {
+                    targetOption.click();
+                }
+            }
+            
+            // Handle form submissions
+            const forms = document.querySelectorAll('.registration-form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Basic validation
+                    const requiredInputs = this.querySelectorAll('input[required], select[required], textarea[required]');
+                    let isValid = true;
+                    
+                    requiredInputs.forEach(input => {
+                        if (!input.value.trim()) {
+                            input.style.borderColor = 'var(--danger)';
+                            isValid = false;
+                        } else {
+                            input.style.borderColor = '#ddd';
+                        }
+                    });
+                    
+                    if (isValid) {
+                        // Show success message with role-specific details
+                        const role = this.id.replace('Form', '');
+                        let roleName = '';
+                        let fee = '';
+                        
+                        switch(role) {
+                            case 'public':
+                                roleName = 'Public User';
+                                fee = 'Free';
+                                break;
+                            case 'owner':
+                                roleName = 'Bull Owner';
+                                fee = '₹2,500';
+                                break;
+                            case 'tamer':
+                                roleName = 'Tamer';
+                                fee = '₹1,000';
+                                break;
+                        }
+                        
+                        alert(`Thank you for registering as a ${roleName}!\n\nYour registration has been submitted for review. You will receive a confirmation email once approved.\n\nRegistration Fee: ${fee}\n\nYour application ID: ${generateId('APP')}`);
+                        
+                        // Reset form
+                        this.reset();
+                        
+                        // Reset file upload displays
+                        const fileUploads = this.querySelectorAll('.file-upload');
+                        fileUploads.forEach(upload => {
+                            const icon = upload.querySelector('i');
+                            const text = upload.querySelector('p');
+                            const input = upload.querySelector('input');
+                            
+                            if (input.id.includes('IdProof') || input.id.includes('Certificate')) {
+                                icon.className = 'fas fa-id-card';
+                            } else if (input.id.includes('Images')) {
+                                icon.className = 'fas fa-images';
+                            } else if (input.id.includes('Photo')) {
+                                icon.className = 'fas fa-user-circle';
+                            } else {
+                                icon.className = 'fas fa-file-upload';
+                            }
+                            
+                            icon.style.color = '';
+                            text.textContent = 'Click to upload file';
+                            upload.style.borderColor = '#ddd';
+                        });
+                    } else {
+                        alert('Please fill in all required fields marked with *.');
+                    }
+                });
+            });
+            
+            // File upload handling
+            const fileUploads = document.querySelectorAll('.file-upload');
+            fileUploads.forEach(upload => {
+                upload.addEventListener('click', function() {
+                    const fileInput = this.querySelector('input[type="file"]');
+                    if (fileInput) {
+                        fileInput.click();
+                    }
+                });
+                
+                const fileInput = upload.querySelector('input[type="file"]');
+                if (fileInput) {
+                    fileInput.addEventListener('change', function() {
+                        const fileName = this.files[0] ? this.files[0].name : 'No file chosen';
+                        const uploadArea = this.closest('.file-upload');
+                        const icon = uploadArea.querySelector('i');
+                        const text = uploadArea.querySelector('p');
+                        
+                        if (this.files[0]) {
+                            icon.className = 'fas fa-file-check';
+                            icon.style.color = 'var(--success)';
+                            text.textContent = fileName;
+                            uploadArea.style.borderColor = 'var(--success)';
+                        }
+                    });
+                }
+            });
+        });
+        
+        // Generate application ID
+        function generateId(prefix = '') {
+            return prefix + Math.random().toString(36).substr(2, 9).toUpperCase();
+        }
+    </script>
+</body>
+</html>

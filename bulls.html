@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bull Management | JALLIX-NEX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/tamers.css">
+
+    <style>
+        .page-header {
+            min-height: 500px !important;
+            height: 60vh;
+            max-height: 700px;
+        }
+        .page-header p {
+            font-size: 1.5rem;
+            font-weight: 300;
+            max-width: 600px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body class="bulls-page">
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="images/bullicon.png" alt="Bull Icon" style="width: 40px; height: 40px;">
+                </div>
+                <div class="logo-text">JALLIX<span>NEX</span></div>
+            </div>
+            
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav class="nav">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="events.html" class="nav-link">Events</a></li>
+                    <li><a href="bulls.html" class="nav-link active">Bulls</a></li>
+                    <li><a href="tamers.html" class="nav-link">Tamers</a></li>
+                    <li><a href="sponsors.html" class="nav-link">Sponsors</a></li>
+                    <!-- <li><a href="participants.html" class="nav-link">Register</a></li> -->
+                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li>
+                        <a href="login.html" class="nav-login-btn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Login</span>
+                            <span class="btn-shine"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Bull Management Section -->
+    <section class="page-header">
+        <div class="header-video-bg">
+            <video autoplay muted loop playsinline poster="images/bull.png">
+                <source src="videos/Backgroundvideo3.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="header-video-overlay"></div>
+        </div>
+        <div class="container">
+            <h1>Bull Registration & Management</h1>
+            <p>Register bulls, manage certificates, and book event slots</p>
+        </div>
+    </section>
+
+    <section class="dashboard">
+        <div class="container">
+            <div class="section-header">
+                <h2>Bull Management</h2>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="registerBullBtn">
+                        <i class="fas fa-plus"></i> Register New Bull
+                    </button>
+                    <button class="btn btn-outline" id="bulkUploadBtn">
+                        <i class="fas fa-upload"></i> Bulk Upload
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bull Statistics -->
+            <div class="stats-grid mb-30">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <img src="images/bull.png" alt="Bull" style="width: 40px; height: 40px;">
+                    </div>
+                    <div class="stat-info">
+                        <h3>236</h3>
+                        <p>Total Bulls</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>189</h3>
+                        <p>Approved Bulls</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>32</h3>
+                        <p>Pending Review</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>156</h3>
+                        <p>Event Bookings</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bull Registration Form -->
+            <div class="form-container card mb-30" id="bullRegistrationForm" style="display: none;">
+                <h3 class="form-title">Register New Bull</h3>
+                <form id="bullForm">
+                    <div class="form-section">
+                        <h4>Owner Information</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ownerName">Owner Name *</label>
+                                <input type="text" id="ownerName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ownerAadhaar">Aadhaar Number *</label>
+                                <input type="text" id="ownerAadhaar" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ownerPhone">Phone Number *</label>
+                                <input type="tel" id="ownerPhone" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ownerEmail">Email Address *</label>
+                                <input type="email" id="ownerEmail" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ownerAddress">Owner Address *</label>
+                            <textarea id="ownerAddress" class="form-control" rows="2" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Bull Information</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bullName">Bull Name *</label>
+                                <input type="text" id="bullName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="bullBreed">Breed *</label>
+                                <select id="bullBreed" class="form-control" required>
+                                    <option value="">Select Breed</option>
+                                    <option value="kangayam">Kangayam</option>
+                                    <option value="pulikulam">Pulikulam</option>
+                                    <option value="bargur">Bargur</option>
+                                    <option value="umblachery">Umblachery</option>
+                                    <option value="alambadi">Alambadi</option>
+                                    <option value="malaimadu">Malaimadu</option>
+                                    <option value="other">Other Indigenous Breed</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bullAge">Age (years) *</label>
+                                <input type="number" id="bullAge" class="form-control" min="1" max="15" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="bullColor">Color/Markings</label>
+                                <input type="text" id="bullColor" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bullWeight">Weight (approx. kg)</label>
+                                <input type="number" id="bullWeight" class="form-control" min="100" max="1000">
+                            </div>
+                            <div class="form-group">
+                                <label for="bullHeight">Height (cm)</label>
+                                <input type="number" id="bullHeight" class="form-control" min="100" max="200">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bullHistory">Previous Event History</label>
+                            <textarea id="bullHistory" class="form-control" rows="3" placeholder="List any previous events participated in"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bullSpecialFeatures">Special Features</label>
+                            <textarea id="bullSpecialFeatures" class="form-control" rows="2" placeholder="Any special characteristics or achievements"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Certificates & Documents</h4>
+                        <div class="form-group">
+                            <label>Veterinary Fitness Certificate *</label>
+                            <div class="file-upload">
+                                <i class="fas fa-file-medical"></i>
+                                <p>Click to upload veterinary certificate (PDF, JPG, PNG)</p>
+                                <input type="file" id="vetCertificate" accept=".pdf,.jpg,.jpeg,.png">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ownership Proof Document *</label>
+                            <div class="file-upload">
+                                <i class="fas fa-file-contract"></i>
+                                <p>Click to upload ownership proof (PDF, JPG, PNG)</p>
+                                <input type="file" id="ownershipProof" accept=".pdf,.jpg,.jpeg,.png">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Bull Images (Multiple allowed) *</label>
+                            <div class="file-upload">
+                                <i class="fas fa-images"></i>
+                                <p>Click to upload bull images (JPG, PNG) - Front, Side, and Rear views recommended</p>
+                                <input type="file" id="bullImages" accept=".jpg,.jpeg,.png" multiple>
+                            </div>
+                            <small class="text-muted">Upload clear images showing the bull from different angles</small>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Payment Information</h4>
+                        <div class="form-group">
+                            <div class="payment-info">
+                                <div class="payment-item">
+                                    <span>Registration Fee</span>
+                                    <span class="price">₹2,500</span>
+                                </div>
+                                <div class="payment-item">
+                                    <span>Certificate Verification</span>
+                                    <span class="price">₹500</span>
+                                </div>
+                                <div class="payment-item total">
+                                    <strong>Total Amount</strong>
+                                    <strong class="price">₹3,000</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="paymentMethod">Select Payment Method *</label>
+                            <select id="paymentMethod" class="form-control" required>
+                                <option value="">Select Method</option>
+                                <option value="online">Online Payment (Credit/Debit Card)</option>
+                                <option value="upi">UPI Payment</option>
+                                <option value="netbanking">Net Banking</option>
+                                <option value="bank_transfer">Bank Transfer</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox">
+                            <input type="checkbox" id="agreeTerms">
+                            <span>I declare that all information provided is true and accurate. I agree to the <a href="#">terms and conditions</a>.</span>
+                        </label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Submit Registration (₹3,000)</button>
+                        <button type="button" class="btn btn-outline" id="cancelBullForm">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Bulls List -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3>Registered Bulls</h3>
+                    <div class="table-actions">
+                        <input type="text" id="searchBulls" class="form-control" placeholder="Search bulls..." style="width: 200px;">
+                        <select id="filterStatus" class="form-control" style="width: 150px;">
+                            <option value="">All Status</option>
+                            <option value="approved">Approved</option>
+                            <option value="pending">Pending</option>
+                            <option value="rejected">Rejected</option>
+                            <option value="expired">Certificate Expired</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Bull Name</th>
+                            <th>Breed</th>
+                            <th>Owner</th>
+                            <th>Age</th>
+                            <th>Certificate Status</th>
+                            <th>Registration Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bullsTableBody">
+                        <!-- Bulls will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Bull Details Modal -->
+            <div class="modal" id="bullDetailsModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Bull Details</h3>
+                        <button class="modal-close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="bullDetailsContent">
+                            <!-- Details will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Time Slot Booking Modal -->
+            <div class="modal" id="timeSlotBookingModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Book Time Slot</h3>
+                        <button class="modal-close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="timeSlotBookingContent">
+                            <!-- Time slot booking interface will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Time Slot Management Modal -->
+            <div class="modal" id="timeSlotManagementModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Manage Time Slots</h3>
+                        <button class="modal-close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="timeSlotManagementContent">
+                            <!-- Time slot management interface will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">JALLIX<span>NEX</span></div>
+                    <p>Next Generation Jallikattu Event Intelligence and Management System. Preserving tradition through technology.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Bull Breeds</h4>
+                    <ul>
+                        <li><a href="#">Kangayam</a></li>
+                        <li><a href="#">Pulikulam</a></li>
+                        <li><a href="#">Bargur</a></li>
+                        <li><a href="#">Umblachery</a></li>
+                        <li><a href="#">Alambadi</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Breed Standards</a></li>
+                        <li><a href="#">Health Guidelines</a></li>
+                        <li><a href="#">Training Resources</a></li>
+                        <li><a href="#">Event Rules</a></li>
+                        <li><a href="#">Safety Protocols</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contact for Bulls</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> bulls@jallixnex.com</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43211</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Madurai, Tamil Nadu</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 JALLIX-NEX. All rights reserved. | Designed for Next Generation Jallikattu Management</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/events.js"></script>
+    <script src="js/bulls.js"></script>
+</body>
+</html>

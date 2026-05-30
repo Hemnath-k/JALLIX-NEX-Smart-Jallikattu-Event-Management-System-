@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Connection Test | JALLIX-NEX</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #d35400; }
+        .status {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        button {
+            background: #d35400;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover { background: #e67e22; }
+        .endpoint {
+            background: #e9ecef;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 JALLIX-NEX Backend Connection Test</h1>
+        
+        <div id="status" class="status info">
+            Click "Test Connection" to check if the backend is accessible
+        </div>
+
+        <button onclick="testConnection()">Test Connection</button>
+        <button onclick="testEvents()">Test Events API</button>
+        <button onclick="testAuth()">Test Auth API</button>
+
+        <h2>Results:</h2>
+        <pre id="results">No tests run yet...</pre>
+
+        <h2>📋 Troubleshooting Guide</h2>
+        
+        <h3>If you see "Method Not Allowed":</h3>
+        <ul>
+            <li>✅ You must use <code>http://localhost:8080/test_connection.html</code></li>
+            <li>❌ NOT <code>file:///D:/Jallikattu/test_connection.html</code></li>
+        </ul>
+
+        <h3>Correct Way to Access:</h3>
+        <ol>
+            <li>Start the frontend server: <code>python -m http.server 8080</code></li>
+            <li>Open: <a href="http://localhost:8080/test_connection.html">http://localhost:8080/test_connection.html</a></li>
+            <li>NOT by double-clicking the HTML file!</li>
+        </ol>
+
+        <h3>Available Endpoints:</h3>
+        <div class="endpoint">GET  http://localhost:5000/api/events</div>
+        <div class="endpoint">POST http://localhost:5000/api/auth/register</div>
+        <div class="endpoint">POST http://localhost:5000/api/auth/login</div>
+        <div class="endpoint">GET  http://localhost:5000/api/bulls</div>
+        <div class="endpoint">GET  http://localhost:5000/api/tamers</div>
+        <div class="endpoint">POST http://localhost:5000/api/init-db</div>
+
+        <h3>Quick Start:</h3>
+        <p>Run <code>start.bat</code> to start both servers automatically</p>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:5000/api';
+        const resultsDiv = document.getElementById('results');
+        const statusDiv = document.getElementById('status');
+
+        async function testConnection() {
+            statusDiv.className = 'status warning';
+            statusDiv.textContent = 'Testing connection...';
+            resultsDiv.textContent = 'Testing...';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/events`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    statusDiv.className = 'status success';
+                    statusDiv.textContent = '✅ Backend is running and accessible!';
+                    resultsDiv.textContent = JSON.stringify(data, null, 2);
+                } else {
+                    statusDiv.className = 'status error';
+                    statusDiv.textContent = `❌ Error: ${response.status} ${response.statusText}`;
+                    resultsDiv.textContent = JSON.stringify(data, null, 2);
+                }
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = '❌ Cannot connect to backend';
+                resultsDiv.textContent = `Error: ${error.message}\n\nMake sure:\n1. Backend is running on http://localhost:5000\n2. You're accessing this page via http://localhost:8080\n3. NOT by double-clicking the HTML file`;
+            }
+        }
+
+        async function testEvents() {
+            statusDiv.className = 'status warning';
+            statusDiv.textContent = 'Testing events endpoint...';
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/events`);
+                const data = await response.json();
+                
+                statusDiv.className = 'status success';
+                statusDiv.textContent = `✅ Events API working! Found ${data.total} events`;
+                resultsDiv.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = '❌ Events API failed';
+                resultsDiv.textContent = error.message;
+            }
+        }
+
+        async function testAuth() {
+            statusDiv.className = 'status warning';
+            statusDiv.textContent = 'Testing auth endpoint...';
+            
+            try {
+                // Test registration with dummy data
+                const testData = {
+                    name: 'Test User',
+                    email: 'test' + Date.now() + '@example.com',
+                    password: 'testpassword123',
+                    role: 'public'
+                };
+                
+                const response = await fetch(`${API_BASE_URL}/auth/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    statusDiv.className = 'status success';
+                    statusDiv.textContent = '✅ Auth API working! User registered';
+                } else {
+                    statusDiv.className = 'status warning';
+                    statusDiv.textContent = `⚠️ Auth returned: ${data.message || response.statusText}`;
+                }
+                resultsDiv.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = '❌ Auth API failed';
+                resultsDiv.textContent = error.message;
+            }
+        }
+
+        // Auto-test on load
+        window.onload = testConnection;
+    </script>
+</body>
+</html>
