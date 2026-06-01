@@ -39,7 +39,7 @@ git push -u origin main
    - **Name:** jallix-backend
    - **Environment:** Python
    - **Build Command:** `pip install -r backend/requirements.txt`
-   - **Start Command:** `gunicorn -w 4 -b 0.0.0.0:$PORT backend.app:app`
+   - **Start Command:** `cd backend && gunicorn -w 4 -b 0.0.0.0:$PORT app:app`
    - **Plan:** Free or Starter
 
 5. **Add Environment Variables:**
