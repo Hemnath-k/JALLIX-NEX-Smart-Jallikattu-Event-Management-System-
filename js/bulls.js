@@ -1,7 +1,10 @@
 // Bull Registration and Management for JALLIX-NEX
 // API Integration with Flask Backend
 
-var API_BASE_URL = 'http://localhost:5000/api';
+// Dynamic API URL - use production backend in deployment
+var API_BASE_URL = window.location.hostname === 'localhost' 
+  ? 'http://localhost:5000/api'
+  : 'https://jallix-nex-smart-jallikattu-event.onrender.com/api';
 
 class BullsManager {
     constructor() {

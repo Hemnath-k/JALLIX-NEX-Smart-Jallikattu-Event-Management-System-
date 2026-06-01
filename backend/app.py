@@ -40,7 +40,7 @@ if os.getenv('FLASK_ENV') == 'production':
     ALLOWED_ORIGINS = [origin.strip() for origin in ALLOWED_ORIGINS]
 else:
     # In development, allow localhost and file:// protocol
-    ALLOWED_ORIGINS = ["http://localhost", "http://127.0.0.1", "http://localhost:8080", "file://", "*"]
+    ALLOWED_ORIGINS = ["http://localhost", "http://127.0.0.1", "http://localhost:8080", "file://"]
 
 CORS(app, resources={
     r"/api/*": {
@@ -56,6 +56,13 @@ db.init_app(app)
 
 # Create upload folder if not exists
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+# Initialize database tables on startup
+with app.app_context():
+    try:
+        db.create_all()
+    except Exception as e:
+        print(f"Database initialization error: {e}")
 
 # ==================== AUTHENTICATION DECORATOR ====================
 def token_required(f):

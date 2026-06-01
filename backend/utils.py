@@ -1,19 +1,17 @@
 import hashlib
 import secrets
 from datetime import datetime, timedelta
+import bcrypt
 
 def hash_password(password):
-    """Hash a password using SHA-256"""
-    # In production, use bcrypt or argon2
-    salt = secrets.token_hex(16)
-    pwd_hash = hashlib.sha256((password + salt).encode()).hexdigest()
-    return f"{salt}${pwd_hash}"
+    """Hash a password using bcrypt"""
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(password.encode('utf-8'), salt).decode('utf-8')
 
 def verify_password(password, password_hash):
-    """Verify a password against its hash"""
+    """Verify a password against its bcrypt hash"""
     try:
-        salt, pwd_hash = password_hash.split('$')
-        return pwd_hash == hashlib.sha256((password + salt).encode()).hexdigest()
+        return bcrypt.checkpw(password.encode('utf-8'), password_hash.encode('utf-8'))
     except:
         return False
 

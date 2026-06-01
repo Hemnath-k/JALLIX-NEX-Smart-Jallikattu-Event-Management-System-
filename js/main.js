@@ -228,7 +228,10 @@ async function initializeAuth() {
     if (token && userData) {
         try {
             // Verify token with backend
-            const response = await fetch('http://localhost:5000/api/auth/me', {
+            const apiUrl = window.location.hostname === 'localhost' 
+              ? 'http://localhost:5000/api/auth/me'
+              : 'https://jallix-nex-smart-jallikattu-event.onrender.com/api/auth/me';
+            const response = await fetch(apiUrl, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -259,7 +262,10 @@ async function initializeAuth() {
             try {
                 const token = localStorage.getItem('jallixnex_token') || sessionStorage.getItem('jallixnex_token');
                 if (token) {
-                    await fetch('http://localhost:5000/api/auth/logout', {
+                    const logoutUrl = window.location.hostname === 'localhost'
+                      ? 'http://localhost:5000/api/auth/logout'
+                      : 'https://jallix-nex-smart-jallikattu-event.onrender.com/api/auth/logout';
+                    await fetch(logoutUrl, {
                         method: 'POST',
                         headers: {
                             'Authorization': `Bearer ${token}`,
