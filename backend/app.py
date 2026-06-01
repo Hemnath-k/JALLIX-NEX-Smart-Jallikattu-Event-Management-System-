@@ -33,12 +33,21 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
 app.config['JWT_SECRET_KEY'] = JWT_SECRET_KEY
 
-# Enable CORS
+# Enable CORS - Configure based on environment
+ALLOWED_ORIGINS = os.getenv('ALLOWED_ORIGINS', 'http://localhost:8080,http://127.0.0.1:8080').split(',')
+if os.getenv('FLASK_ENV') == 'production':
+    # In production, only allow specific origins
+    ALLOWED_ORIGINS = [origin.strip() for origin in ALLOWED_ORIGINS]
+else:
+    # In development, allow localhost and file:// protocol
+    ALLOWED_ORIGINS = ["http://localhost", "http://127.0.0.1", "http://localhost:8080", "file://", "*"]
+
 CORS(app, resources={
     r"/api/*": {
-        "origins": ["http://localhost", "http://127.0.0.1", "file://", "*"],
+        "origins": ALLOWED_ORIGINS,
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        "allow_headers": ["Content-Type", "Authorization", "Accept"]
+        "allow_headers": ["Content-Type", "Authorization", "Accept"],
+        "supports_credentials": True
     }
 })
 
